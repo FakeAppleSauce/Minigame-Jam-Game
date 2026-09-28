@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://duol1tdkkmhe1"]
+
+[ext_resource type="Script" path="res://home_page.gd" id="1_3ykqj"]
+[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Kitty.PNG" id="2_qra48"]
+
+[node name="HomePage" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_3ykqj")
+
+[node name="Title" type="Sprite2D" parent="."]
+position = Vector2(575, 227)
+scale = Vector2(0.468, 0.468)
+texture = ExtResource("2_qra48")
+
+[node name="StartButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 488.0
+offset_right = 708.0
+offset_bottom = 583.0
+text = "Begin"
+
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

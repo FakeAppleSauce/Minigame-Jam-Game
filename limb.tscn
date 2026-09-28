@@ -1,0 +1,39 @@
+[gd_scene load_steps=4 format=3 uid="uid://0byordc8db3l"]
+
+[ext_resource type="Script" path="res://limb.gd" id="1_s1td2"]
+[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Kitty.PNG" id="2_skafq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pndob"]
+radius = 32.0
+height = 110.0
+
+[node name="Limb" type="RigidBody2D"]
+z_index = 4
+collision_mask = 32769
+input_pickable = true
+gravity_scale = 0.0
+linear_damp = 10.0
+script = ExtResource("1_s1td2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -1.90735e-06)
+scale = Vector2(0.071, 0.14225)
+texture = ExtResource("2_skafq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_pndob")
+
+[node name="life" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
+[node name="lifeBar" type="ColorRect" parent="."]
+offset_left = -39.0
+offset_top = -51.0
+offset_right = 37.0
+offset_bottom = -41.0
+color = Color(1, 1, 0.0745098, 1)
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="timeout" from="life" to="." method="_on_life_timeout"]
