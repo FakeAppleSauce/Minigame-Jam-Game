@@ -12,23 +12,26 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 
 func _on_head_freezer_pressed() -> void:
+	Global.currentLimbSpawn = "head"
 	var limb_copy = LIMB.instantiate()
 	limb_copy.position = get_global_mouse_position()
 	limbs.add_child(limb_copy)
 
 
 func _on_arm_freezer_pressed() -> void:
+	Global.currentLimbSpawn = "arm"
 	var limb_copy = LIMB.instantiate()
 	limb_copy.position = get_global_mouse_position()
 	limbs.add_child(limb_copy)
 
 
 func _on_leg_freezer_pressed() -> void:
+	Global.currentLimbSpawn = "leg"
 	var limb_copy = LIMB.instantiate()
 	limb_copy.position = get_global_mouse_position()
 	limbs.add_child(limb_copy)

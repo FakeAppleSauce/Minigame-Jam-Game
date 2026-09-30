@@ -1,21 +1,42 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=20 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://order_screen.gd" id="1_6p6xb"]
 [ext_resource type="Script" path="res://work_bench.gd" id="1_8ghld"]
 [ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Kitty.PNG" id="1_244y8"]
 [ext_resource type="Script" path="res://control.gd" id="3_gkj46"]
+[ext_resource type="PackedScene" uid="uid://0byordc8db3l" path="res://limb.tscn" id="5_fnoou"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0in1h"]
+radius = 61.5385
+height = 164.103
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5k2sm"]
 radius = 45.3982
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ky58f"]
+radius = 13.0
+height = 58.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_w8i25"]
 radius = 48.0104
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mr453"]
+radius = 13.0
+height = 56.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_chhwy"]
 radius = 46.0977
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vjgxr"]
+radius = 15.0
+height = 60.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_6iyli"]
 radius = 45.0444
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sj03v"]
+radius = 14.0
+height = 58.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_indhl"]
 radius = 52.469
@@ -38,43 +59,150 @@ b = Vector2(1154, 651)
 [node name="MainGame" type="Node"]
 
 [node name="OrderScreen" type="Node2D" parent="."]
+z_index = -1
 script = ExtResource("1_6p6xb")
 
 [node name="ZombieBuild" type="Node2D" parent="OrderScreen"]
+z_index = -1
 
 [node name="Torso" type="Sprite2D" parent="OrderScreen/ZombieBuild"]
+z_index = -3
 position = Vector2(339, 349)
 scale = Vector2(0.24375, 0.397)
 texture = ExtResource("1_244y8")
+metadata/_edit_group_ = true
 
-[node name="leftArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild"]
+[node name="leftArm" type="Node2D" parent="OrderScreen/ZombieBuild"]
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftArmConnector"]
+[node name="leftJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftArm"]
+z_index = 5
 position = Vector2(230, 237)
+node_b = NodePath("../invisibleLeftArm")
+bias = 0.111
+metadata/_edit_group_ = true
+
+[node name="invisibleLeftArm" type="StaticBody2D" parent="OrderScreen/ZombieBuild/leftArm"]
+position = Vector2(230, 237)
+scale = Vector2(0.24375, 0.397)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftArm/invisibleLeftArm"]
+position = Vector2(-0.00012207, 0)
+shape = SubResource("CapsuleShape2D_0in1h")
+
+[node name="leftArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild/leftArm"]
+position = Vector2(230, 237)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftArm/leftArmConnector"]
 shape = SubResource("CircleShape2D_5k2sm")
 
-[node name="rightArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild"]
+[node name="rightArm" type="Node2D" parent="OrderScreen/ZombieBuild"]
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightArmConnector"]
+[node name="rightJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightArm"]
 position = Vector2(461, 229)
+node_b = NodePath("../invisibleRightArm")
+
+[node name="invisibleRightArm" type="StaticBody2D" parent="OrderScreen/ZombieBuild/rightArm"]
+position = Vector2(461, 229)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightArm/invisibleRightArm"]
+shape = SubResource("CapsuleShape2D_ky58f")
+
+[node name="rightArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild/rightArm"]
+position = Vector2(461, 229)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightArm/rightArmConnector"]
 shape = SubResource("CircleShape2D_w8i25")
 
-[node name="leftFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild"]
+[node name="leftFoot" type="Node2D" parent="OrderScreen/ZombieBuild"]
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftFootConnector"]
+[node name="leftFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftFoot"]
 position = Vector2(275, 478)
+node_b = NodePath("../invisibleLeftFoot")
+
+[node name="invisibleLeftFoot" type="StaticBody2D" parent="OrderScreen/ZombieBuild/leftFoot"]
+position = Vector2(275, 478)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftFoot/invisibleLeftFoot"]
+shape = SubResource("CapsuleShape2D_mr453")
+
+[node name="leftFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild/leftFoot"]
+position = Vector2(275, 478)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftFoot/leftFootConnector"]
 shape = SubResource("CircleShape2D_chhwy")
 
-[node name="rightFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild"]
+[node name="rightFoot" type="Node2D" parent="OrderScreen/ZombieBuild"]
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightFootConnector"]
+[node name="rightFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightFoot"]
 position = Vector2(399, 478)
+node_b = NodePath("../invisibleRightFoot")
+
+[node name="invisibleRightFoot" type="StaticBody2D" parent="OrderScreen/ZombieBuild/rightFoot"]
+position = Vector2(399, 478)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightFoot/invisibleRightFoot"]
+shape = SubResource("CapsuleShape2D_vjgxr")
+
+[node name="rightFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild/rightFoot"]
+position = Vector2(399, 478)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightFoot/rightFootConnector"]
 shape = SubResource("CircleShape2D_6iyli")
 
-[node name="headConnector" type="Area2D" parent="OrderScreen/ZombieBuild"]
+[node name="head" type="Node2D" parent="OrderScreen/ZombieBuild"]
+metadata/_edit_group_ = true
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/headConnector"]
+[node name="headJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/head"]
 position = Vector2(343, 194)
+node_b = NodePath("../invisibleHead")
+angular_limit_enabled = true
+angular_limit_lower = -1.0472
+angular_limit_upper = 1.0472
+
+[node name="invisibleHead" type="StaticBody2D" parent="OrderScreen/ZombieBuild/head"]
+position = Vector2(343, 194)
+collision_layer = 0
+collision_mask = 0
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/head/invisibleHead"]
+shape = SubResource("CapsuleShape2D_sj03v")
+
+[node name="headConnector" type="Area2D" parent="OrderScreen/ZombieBuild/head"]
+position = Vector2(343, 194)
+collision_layer = 2
+collision_mask = 2
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/head/headConnector"]
 shape = SubResource("CircleShape2D_indhl")
 
 [node name="WorkBench" type="Node2D" parent="."]
@@ -175,7 +303,7 @@ offset_bottom = 40.0
 mouse_filter = 2
 script = ExtResource("3_gkj46")
 
-[node name="Button" type="Button" parent="UI"]
+[node name="workBenchButton" type="Button" parent="UI"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -191,7 +319,18 @@ grow_vertical = 2
 rotation = 1.5708
 text = "Work Bench"
 
+[node name="sendOrderButton" type="Button" parent="UI"]
+layout_mode = 0
+offset_left = 239.0
+offset_top = 548.0
+offset_right = 431.0
+offset_bottom = 604.0
+text = "Send Order"
+
 [node name="Limbs" type="Node2D" parent="."]
+
+[node name="Limb" parent="Limbs" instance=ExtResource("5_fnoou")]
+position = Vector2(-383, -211)
 
 [node name="Wall" type="StaticBody2D" parent="."]
 collision_layer = 32769
@@ -209,6 +348,11 @@ shape = SubResource("SegmentShape2D_qgl8p")
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Wall"]
 shape = SubResource("SegmentShape2D_sxwj1")
 
+[connection signal="body_entered" from="OrderScreen/ZombieBuild/leftArm/leftArmConnector" to="OrderScreen" method="_on_left_arm_connector_body_entered"]
+[connection signal="body_entered" from="OrderScreen/ZombieBuild/rightArm/rightArmConnector" to="OrderScreen" method="_on_right_arm_connector_body_entered"]
+[connection signal="body_entered" from="OrderScreen/ZombieBuild/leftFoot/leftFootConnector" to="OrderScreen" method="_on_left_foot_connector_body_entered"]
+[connection signal="body_entered" from="OrderScreen/ZombieBuild/rightFoot/rightFootConnector" to="OrderScreen" method="_on_right_foot_connector_body_entered"]
+[connection signal="body_entered" from="OrderScreen/ZombieBuild/head/headConnector" to="OrderScreen" method="_on_head_connector_body_entered"]
 [connection signal="pressed" from="WorkBench/Shelf/growNeedle" to="WorkBench" method="_on_grow_needle_pressed"]
 [connection signal="pressed" from="WorkBench/Shelf/wartNeedle" to="WorkBench" method="_on_wart_needle_pressed"]
 [connection signal="pressed" from="WorkBench/Shelf/rainbowNeedle" to="WorkBench" method="_on_rainbow_needle_pressed"]
@@ -217,4 +361,5 @@ shape = SubResource("SegmentShape2D_sxwj1")
 [connection signal="pressed" from="WorkBench/armFreezer" to="WorkBench" method="_on_arm_freezer_pressed"]
 [connection signal="pressed" from="WorkBench/legFreezer" to="WorkBench" method="_on_leg_freezer_pressed"]
 [connection signal="body_entered" from="WorkBench/Chute/Area2D" to="WorkBench" method="_on_area_2d_body_entered"]
-[connection signal="pressed" from="UI/Button" to="UI" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/workBenchButton" to="UI" method="_on_button_pressed"]
+[connection signal="pressed" from="UI/sendOrderButton" to="UI" method="_on_send_order_pressed"]
