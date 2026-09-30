@@ -79,7 +79,6 @@ metadata/_edit_group_ = true
 z_index = 5
 position = Vector2(230, 237)
 node_b = NodePath("../invisibleLeftArm")
-bias = 0.111
 metadata/_edit_group_ = true
 
 [node name="invisibleLeftArm" type="StaticBody2D" parent="OrderScreen/ZombieBuild/leftArm"]
