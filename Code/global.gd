@@ -44,6 +44,8 @@ var currentOrder = {
 var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
 var unlockedEffects = ["null", "none"]
 
+signal runOrderVisuals
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -57,3 +59,5 @@ func createNewOrder():
 	for i in 5:
 		currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, 1)]
 		print(str(limbs[i - 1]) + ": " + str(currentOrder[limbs[i - 1]]))
+	
+	runOrderVisuals.emit()

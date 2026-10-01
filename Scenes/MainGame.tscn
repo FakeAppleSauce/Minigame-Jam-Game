@@ -236,7 +236,7 @@ rotation = -0.443314
 scale = Vector2(0.0665, 0.206)
 texture = ExtResource("2_etg1v")
 
-[node name="OrderLeftLeg2" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+[node name="OrderRightLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 position = Vector2(763.757, 433.5)
 rotation = 0.31765
 scale = Vector2(0.0665, 0.206)
@@ -389,6 +389,15 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Infractions: 0"
+
+[node name="TEMPORARYTEXT" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 752.0
+offset_top = 591.0
+offset_right = 933.0
+offset_bottom = 640.0
+text = "VISIBLE = LIMB
+NOT VISIBLE = NO LIMB"
 
 [node name="Limbs" type="Node2D" parent="."]
 

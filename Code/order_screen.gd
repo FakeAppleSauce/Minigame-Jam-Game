@@ -1,15 +1,25 @@
 extends Node2D
 
+#Joint References
 @onready var left_joint: PinJoint2D = $ZombieBuild/leftArm/leftJoint
 @onready var right_joint: PinJoint2D = $ZombieBuild/rightArm/rightJoint
 @onready var left_foot_joint: PinJoint2D = $ZombieBuild/leftFoot/leftFootJoint
 @onready var right_foot_joint: PinJoint2D = $ZombieBuild/rightFoot/rightFootJoint
 @onready var head_joint: PinJoint2D = $ZombieBuild/head/headJoint
 
+#Order Paper Sprite References
+@onready var leftArm: Sprite2D = $CurrentOrder/OrderLeftArm
+@onready var rightArm: Sprite2D = $CurrentOrder/OrderRightArm
+@onready var leftFoot: Sprite2D = $CurrentOrder/OrderLeftLeg
+@onready var rightFoot: Sprite2D = $CurrentOrder/OrderRightLeg
+@onready var head: Sprite2D = $CurrentOrder/OrderHead
+
+var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
+var limbEffect = [false, false, false, false, false]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	Global.runOrderVisuals.connect(_run_order_visuals)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,3 +80,17 @@ func _on_head_connector_body_entered(body: Node2D) -> void:
 func setCurrentLimb(limbType: String, limbEffect: String, limbID: int):
 	Global.currentBuildStatus[str(limbType)]["effect"] = limbEffect 
 	Global.currentBuildStatus[str(limbType)]["ID"] = limbID 
+
+var tempVar = "nothin"
+func _run_order_visuals():
+	for i in 5:
+		if Global.currentOrder[limbs[i - 1]] == "null":
+			limbEffect[i - 1] = false
+		elif Global.currentOrder[limbs[i - 1]] == "none":
+			limbEffect[i - 1] = true
+	
+	leftArm.visible = limbEffect[0]
+	rightArm.visible = limbEffect[1]
+	leftFoot.visible = limbEffect[2]
+	rightFoot.visible = limbEffect[3]
+	head.visible = limbEffect[4]
