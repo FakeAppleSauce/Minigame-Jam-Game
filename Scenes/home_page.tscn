@@ -1,19 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://duol1tdkkmhe1"]
 
-[ext_resource type="Script" path="res://home_page.gd" id="1_3ykqj"]
-[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Kitty.PNG" id="2_qra48"]
+[ext_resource type="Script" path="res://Code/home_page.gd" id="1_0cseg"]
+[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="2_akdjy"]
 
 [node name="HomePage" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_3ykqj")
+script = ExtResource("1_0cseg")
 
 [node name="Title" type="Sprite2D" parent="."]
 position = Vector2(575, 227)
 scale = Vector2(0.468, 0.468)
-texture = ExtResource("2_qra48")
+texture = ExtResource("2_akdjy")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 0

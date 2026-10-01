@@ -1,6 +1,6 @@
 extends Node2D
 
-const LIMB = preload("res://limb.tscn")
+const LIMB = preload("res://Scenes/limb.tscn")
 
 @onready var limbs: Node2D = $"../Limbs"
 @onready var chute: ColorRect = $Chute

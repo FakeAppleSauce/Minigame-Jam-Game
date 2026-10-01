@@ -11,15 +11,14 @@ config_version=5
 [application]
 
 config/name="Minigame Jam"
-run/main_scene="res://home_page.tscn"
+run/main_scene="res://Scenes/home_page.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0618341, 0.168864, 0.0443502, 1)
-boot_splash/image="res://Kitty.PNG"
-config/icon="res://icon.svg"
+boot_splash/image="res://Textures/Kitty.PNG"
 
 [autoload]
 
-Global="*res://global.gd"
+Global="*res://Code/global.gd"
 
 [display]
 

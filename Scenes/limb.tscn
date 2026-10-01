@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://0byordc8db3l"]
 
-[ext_resource type="Script" path="res://limb.gd" id="1_s1td2"]
-[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Kitty.PNG" id="2_skafq"]
+[ext_resource type="Script" path="res://Code/limb.gd" id="1_b4h7g"]
+[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="2_1yq5f"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pndob"]
 radius = 32.0
@@ -13,12 +13,12 @@ collision_mask = 32769
 input_pickable = true
 gravity_scale = 0.0
 linear_damp = 10.0
-script = ExtResource("1_s1td2")
+script = ExtResource("1_b4h7g")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -1.90735e-06)
 scale = Vector2(0.071, 0.14225)
-texture = ExtResource("2_skafq")
+texture = ExtResource("2_1yq5f")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_pndob")

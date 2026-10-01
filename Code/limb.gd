@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const LIMB = preload("res://limb.tscn")
+const LIMB = preload("res://Scenes/limb.tscn")
 
 var hovering = false
 var equipped = false
@@ -18,6 +18,7 @@ var is_moving = false
 var target_position = Vector2(0,0)
 
 var respawn = false
+var attached = false
 
 #0 Work Bench
 #1 Order Screen
@@ -40,12 +41,15 @@ var respawn = false
 
 
 func _ready() -> void:
+	ui.deleteAttachedLimbs.connect(_on_delete_limbs)
 	ui.notePosition.connect(_on_note_position)
 	if respawn == false:
 		apply_central_impulse(Vector2.RIGHT * 5000)
 		limbID = Global.limbID
 		limbType = Global.currentLimbSpawn
 		Global.limbID += 1
+	elif respawn == true:
+		attached = true
 
 
 
@@ -123,3 +127,7 @@ func _on_note_position():
 	
 func _on_life_timeout() -> void:
 	queue_free()
+	
+func _on_delete_limbs():
+	if attached == true:
+		call_deferred("queue_free")
