@@ -54,28 +54,36 @@ func openWorkBench():
 	notePosition.emit()
 
 var goods = 0
+
 func _on_send_order_pressed() -> void:
 	for i in 5:
 		if Global.currentBuildStatus[limbs[i - 1]]["effect"] == Global.currentOrder[limbs[i - 1]]:
-			print(limbs[i - 1] + " good")
 			goods += 1
 		else:
-			print(limbs[i - 1] + " bad")
+			for j in 5:
+				pass
+				#print(Global.currentBuildStatus[limbs[j - 1]]["effect"])
 			
 	if goods == 5:
 		Global.repAmount += 100
 		change_counters("rep")
 		deleteAttachedLimbs.emit()
 		goods = 0
+		Global.createNewOrder()
 		for i in 5:
 			Global.currentBuildStatus[limbs[i-1]]["effect"] = "null"
 			Global.currentBuildStatus[limbs[i-1]]["ID"] = null
 			Global.currentBuildStatus[limbs[i-1]]["occupied"] = false
+			
+		
 		
 	elif goods < 5:
 		Global.infractions += 1
 		change_counters("infractions")
 		goods = 0
+		if Global.infractions >= 5:
+			await get_tree().create_timer(0.1).timeout
+			get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
 
 func change_counters(counter: String):
 	if counter == "rep":
@@ -86,5 +94,4 @@ func change_counters(counter: String):
 		infraction_counter.self_modulate.b = 1 - 1.00/4 * Global.infractions
 		infraction_counter.self_modulate.g = 1 - 1.00/4 * Global.infractions
 		infraction_counter.self_modulate.r = 1 - 1.00/4 * (Global.infractions - 3)
-		print(infraction_counter.self_modulate.b)
 	

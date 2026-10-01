@@ -35,11 +35,14 @@ var currentBuildStatus = {
 
 var currentOrder = {
 	"head": "null",
-	"leftArm": "none",
+	"leftArm": "null",
 	"rightArm": "null",
 	"leftFoot": "null",
 	"rightFoot": "null"
 }
+
+var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
+var unlockedEffects = ["null", "none"]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -49,3 +52,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+func createNewOrder():
+	for i in 5:
+		currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, 1)]
+		print(str(limbs[i - 1]) + ": " + str(currentOrder[limbs[i - 1]]))

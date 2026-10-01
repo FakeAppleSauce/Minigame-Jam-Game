@@ -19,6 +19,7 @@ var target_position = Vector2(0,0)
 
 var respawn = false
 var attached = false
+var tempVar = "nothin"
 
 #0 Work Bench
 #1 Order Screen
@@ -57,6 +58,19 @@ func _process(_delta: float) -> void:
 	life_bar.position.x = sprite_2d.position.x - life_bar.size.x/2
 	life_bar.size.x = snapped(79/20 * life.time_left, 0.01)
 	life_bar.color.g = snapped((255/20 * life.time_left)*0.004, 0.01)
+	
+	if Input.is_action_just_pressed("Delete") && hovering == true:
+		queue_free()
+		if attached == true:
+			tempVar = Global.currentBuildStatus.keys().filter(
+				func(key): return Global.currentBuildStatus[key]["ID"] == limbID
+			)
+			
+			Global.currentBuildStatus[tempVar[0]]["ID"] = null
+			Global.currentBuildStatus[tempVar[0]]["effect"] = "null"
+			Global.currentBuildStatus[tempVar[0]]["Occupied"] = false
+
+
 
 func _physics_process(delta: float) -> void:
 	if hovering == true:
@@ -111,7 +125,6 @@ func move_to_position(pos: Vector2, ID, joint, limbtype):
 	limb_copy.set_collision_mask_value(2, true)
 	limb_copy.set_collision_layer_value(2, true)
 	limb_copy.limb_location = 1
-	print(joint.node_a)
 	call_deferred("queue_free")
 
 func _on_mouse_entered() -> void:

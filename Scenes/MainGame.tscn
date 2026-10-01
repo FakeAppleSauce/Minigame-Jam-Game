@@ -204,6 +204,49 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/head/headConnector"]
 shape = SubResource("CircleShape2D_indhl")
 
+[node name="CurrentOrder" type="Node2D" parent="OrderScreen"]
+
+[node name="Background" type="ColorRect" parent="OrderScreen/CurrentOrder"]
+offset_left = 639.0
+offset_top = 100.0
+offset_right = 1018.0
+offset_bottom = 591.0
+color = Color(0.840262, 0.828184, 0, 1)
+
+[node name="OrderTorso" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(821.757, 312.5)
+scale = Vector2(0.187, 0.272)
+texture = ExtResource("2_etg1v")
+
+[node name="OrderLeftArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(737.757, 278.5)
+rotation = 0.31765
+scale = Vector2(0.0665, 0.206)
+texture = ExtResource("2_etg1v")
+
+[node name="OrderRightArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(924.757, 283.5)
+rotation = -0.443314
+scale = Vector2(0.0665, 0.206)
+texture = ExtResource("2_etg1v")
+
+[node name="OrderLeftLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(885.757, 428.5)
+rotation = -0.443314
+scale = Vector2(0.0665, 0.206)
+texture = ExtResource("2_etg1v")
+
+[node name="OrderLeftLeg2" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(763.757, 433.5)
+rotation = 0.31765
+scale = Vector2(0.0665, 0.206)
+texture = ExtResource("2_etg1v")
+
+[node name="OrderHead" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+position = Vector2(830.757, 176.5)
+scale = Vector2(0.15825, 0.165)
+texture = ExtResource("2_etg1v")
+
 [node name="WorkBench" type="Node2D" parent="."]
 position = Vector2(-1162, 0)
 script = ExtResource("3_85q7c")
@@ -346,16 +389,6 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Infractions: 0"
-
-[node name="TemporaryText" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 756.0
-offset_top = 229.0
-offset_right = 997.0
-offset_bottom = 496.0
-theme_override_font_sizes/font_size = 30
-text = "**Current Order Is All Empty Except For Left Arm Which Has A Normal Arm**"
-autowrap_mode = 2
 
 [node name="Limbs" type="Node2D" parent="."]
 
