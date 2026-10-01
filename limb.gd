@@ -45,7 +45,6 @@ func _ready() -> void:
 		apply_central_impulse(Vector2.RIGHT * 5000)
 		limbID = Global.limbID
 		limbType = Global.currentLimbSpawn
-		print(limbType)
 		Global.limbID += 1
 
 
