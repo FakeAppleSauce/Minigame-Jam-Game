@@ -1,9 +1,14 @@
 extends Node2D
 
 const LIMB = preload("res://Scenes/limb.tscn")
+const NEEDLE = preload("res://Scenes/needle.tscn")
 
 @onready var limbs: Node2D = $"../Limbs"
 @onready var chute: ColorRect = $Chute
+
+@onready var needles: Node2D = $Needles
+
+@onready var grow_needle: TextureButton = $Shelf/growNeedle
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -39,21 +44,6 @@ func _on_leg_freezer_pressed() -> void:
 
 
 
-func _on_grow_needle_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_wart_needle_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_rainbow_needle_pressed() -> void:
-	pass # Replace with function body.
-
-
-func _on_swap_needle_pressed() -> void:
-	pass # Replace with function body.
-
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.get_parent().name == "Limbs":
@@ -69,3 +59,33 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 			body.set_collision_layer_value(2, true)
 
 			body.moveToOrderScreen = true
+
+
+
+func _on_grow_needle_button_down() -> void:
+	var needle_copy = NEEDLE.instantiate()
+	needle_copy.position = get_global_mouse_position()
+	needles.add_child(needle_copy)
+	needle_copy.needleEffect = "grow"
+
+
+func _on_duplicate_needle_button_down() -> void:
+	var needle_copy = NEEDLE.instantiate()
+	needle_copy.position = get_global_mouse_position()
+	needles.add_child(needle_copy)
+	needle_copy.needleEffect = "duplicate"
+
+
+#metal
+func _on_something_needle_button_down() -> void:
+	var needle_copy = NEEDLE.instantiate()
+	needle_copy.position = get_global_mouse_position()
+	needles.add_child(needle_copy)
+	needle_copy.needleEffect = "metal"
+
+#animal
+func _on_something_else_needle_button_down() -> void:
+	var needle_copy = NEEDLE.instantiate()
+	needle_copy.position = get_global_mouse_position()
+	needles.add_child(needle_copy)
+	needle_copy.needleEffect = "animal"

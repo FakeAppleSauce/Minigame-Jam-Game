@@ -41,8 +41,26 @@ var currentOrder = {
 	"rightFoot": "null"
 }
 
-var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
+var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
 var unlockedEffects = ["null", "none"]
+
+var limbPNGPositions = {
+	"leg_none": Rect2(0,0,256,256),
+	"leg_duplicate": Rect2(256,0,256,256),
+	"leg_grow": Rect2(512,0,256,256),
+	"leg_metal": Rect2(768,0,256,256),
+	"leg_animal": Rect2(0,256,256,256),
+	"arm_none": Rect2(256,256,256,256),
+	"arm_duplicate": Rect2(512,256,256,256),
+	"arm_grow": Rect2(768,256,256,256),
+	"arm_metal": Rect2(0,512,256,256),
+	"arm_animal": Rect2(256,512,256,256),
+	"head_none": Rect2(512,512,256,256),
+	"head_duplicate": Rect2(768,512,256,256),
+	"head_grow": Rect2(0,768,256,256),
+	"head_metal": Rect2(256,768,256,256),
+	"head_animal": Rect2(512,768,256,256)
+}
 
 signal runOrderVisuals
 

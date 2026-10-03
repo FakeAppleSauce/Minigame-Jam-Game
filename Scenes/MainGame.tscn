@@ -1,10 +1,15 @@
-[gd_scene load_steps=20 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=35 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://Code/order_screen.gd" id="1_2g5md"]
 [ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="2_etg1v"]
+[ext_resource type="Texture2D" uid="uid://cafusuljqc4ox" path="res://Textures/OrderBG.PNG" id="2_t5wyg"]
 [ext_resource type="Script" path="res://Code/work_bench.gd" id="3_85q7c"]
+[ext_resource type="PackedScene" uid="uid://b7hxlu5x3pnqj" path="res://Scenes/needle.tscn" id="4_ehaqp"]
 [ext_resource type="Script" path="res://Code/control.gd" id="4_gq4hs"]
+[ext_resource type="Texture2D" uid="uid://cci0aju1g74di" path="res://Textures/WorkBenchBG.PNG" id="4_r56wr"]
+[ext_resource type="Texture2D" uid="uid://dtq38jjp0dfod" path="res://Textures/Needles.PNG" id="5_jfwcl"]
 [ext_resource type="PackedScene" uid="uid://0byordc8db3l" path="res://Scenes/limb.tscn" id="5_rqysd"]
+[ext_resource type="Texture2D" uid="uid://n6fh56tobv7t" path="res://Textures/Freezers.PNG" id="6_4hynp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0in1h"]
 radius = 61.5385
@@ -41,6 +46,46 @@ height = 58.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_indhl"]
 radius = 52.469
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_r76pn"]
+atlas = ExtResource("5_jfwcl")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1msvp"]
+atlas = ExtResource("5_jfwcl")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amctt"]
+atlas = ExtResource("5_jfwcl")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3xccv"]
+atlas = ExtResource("5_jfwcl")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iwdfd"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raj71"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4cx4"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ad07x"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tirek"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3x0t3"]
+atlas = ExtResource("6_4hynp")
+region = Rect2(256, 256, 256, 256)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqlhv"]
 size = Vector2(69, 187)
 
@@ -61,6 +106,14 @@ b = Vector2(1154, 651)
 [node name="OrderScreen" type="Node2D" parent="."]
 z_index = -1
 script = ExtResource("1_2g5md")
+
+[node name="OrderBackGround" type="TextureRect" parent="OrderScreen"]
+self_modulate = Color(0.656285, 0.656285, 0.656285, 1)
+z_index = -15
+offset_right = 1163.0
+offset_bottom = 652.0
+texture = ExtResource("2_t5wyg")
+expand_mode = 1
 
 [node name="ZombieBuild" type="Node2D" parent="OrderScreen"]
 z_index = -1
@@ -231,14 +284,14 @@ scale = Vector2(0.0665, 0.206)
 texture = ExtResource("2_etg1v")
 
 [node name="OrderLeftLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(885.757, 428.5)
-rotation = -0.443314
+position = Vector2(752, 449)
+rotation = 0.507891
 scale = Vector2(0.0665, 0.206)
 texture = ExtResource("2_etg1v")
 
 [node name="OrderRightLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(763.757, 433.5)
-rotation = 0.31765
+position = Vector2(888, 440)
+rotation = -0.443314
 scale = Vector2(0.0665, 0.206)
 texture = ExtResource("2_etg1v")
 
@@ -251,12 +304,12 @@ texture = ExtResource("2_etg1v")
 position = Vector2(-1162, 0)
 script = ExtResource("3_85q7c")
 
-[node name="workBenchBackground" type="ColorRect" parent="WorkBench"]
-z_index = -2
+[node name="workBenchBackground" type="TextureRect" parent="WorkBench"]
+z_index = -3
 offset_right = 1153.0
 offset_bottom = 649.0
-mouse_filter = 2
-color = Color(0.43682, 0.473773, 0.526626, 1)
+texture = ExtResource("4_r56wr")
+expand_mode = 1
 
 [node name="Shelf" type="ColorRect" parent="WorkBench"]
 z_index = -2
@@ -273,57 +326,66 @@ offset_top = -33.0
 offset_right = 1022.0
 offset_bottom = 967.0
 scale = Vector2(0.15, 0.15)
-texture_normal = ExtResource("2_etg1v")
+texture_normal = SubResource("AtlasTexture_r76pn")
 stretch_mode = 0
 
-[node name="wartNeedle" type="TextureButton" parent="WorkBench/Shelf"]
+[node name="duplicateNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 0
 offset_left = 664.0
 offset_top = -33.0
 offset_right = 1664.0
 offset_bottom = 967.0
 scale = Vector2(0.15, 0.15)
-texture_normal = ExtResource("2_etg1v")
+texture_normal = SubResource("AtlasTexture_1msvp")
 stretch_mode = 0
 
-[node name="rainbowNeedle" type="TextureButton" parent="WorkBench/Shelf"]
+[node name="metalNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 0
 offset_left = 346.0
 offset_top = -33.0
 offset_right = 1346.0
 offset_bottom = 967.0
 scale = Vector2(0.15, 0.15)
-texture_normal = ExtResource("2_etg1v")
+texture_normal = SubResource("AtlasTexture_amctt")
 stretch_mode = 0
 
-[node name="swapNeedle" type="TextureButton" parent="WorkBench/Shelf"]
+[node name="animalNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 0
 offset_left = 976.0
 offset_top = -33.0
 offset_right = 1976.0
 offset_bottom = 967.0
 scale = Vector2(0.15, 0.15)
-texture_normal = ExtResource("2_etg1v")
+texture_normal = SubResource("AtlasTexture_3xccv")
 stretch_mode = 0
 
-[node name="headFreezer" type="Button" parent="WorkBench"]
-offset_top = 349.0
-offset_right = 131.0
-offset_bottom = 496.0
+[node name="headFreezer" type="TextureButton" parent="WorkBench"]
+offset_top = 337.0
+offset_right = 178.0
+offset_bottom = 513.0
 mouse_default_cursor_shape = 2
-text = "Heads"
+texture_normal = SubResource("AtlasTexture_iwdfd")
+texture_pressed = SubResource("AtlasTexture_raj71")
+ignore_texture_size = true
+stretch_mode = 5
 
-[node name="armFreezer" type="Button" parent="WorkBench"]
-offset_top = 187.0
-offset_right = 131.0
-offset_bottom = 337.0
-text = "Arms"
+[node name="armFreezer" type="TextureButton" parent="WorkBench"]
+offset_top = 177.0
+offset_right = 178.0
+offset_bottom = 363.0
+texture_normal = SubResource("AtlasTexture_i4cx4")
+texture_pressed = SubResource("AtlasTexture_ad07x")
+ignore_texture_size = true
+stretch_mode = 4
 
-[node name="legFreezer" type="Button" parent="WorkBench"]
-offset_top = 22.0
-offset_right = 131.0
-offset_bottom = 173.0
-text = "Legs"
+[node name="legFreezer" type="TextureButton" parent="WorkBench"]
+offset_top = 12.0
+offset_right = 196.0
+offset_bottom = 191.0
+texture_normal = SubResource("AtlasTexture_tirek")
+texture_pressed = SubResource("AtlasTexture_3x0t3")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="Chute" type="ColorRect" parent="WorkBench"]
 offset_left = 1084.0
@@ -336,6 +398,13 @@ mouse_filter = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorkBench/Chute/Area2D"]
 position = Vector2(34.5, 93.5)
 shape = SubResource("RectangleShape2D_eqlhv")
+
+[node name="Needles" type="Node2D" parent="WorkBench"]
+
+[node name="Needle" parent="WorkBench/Needles" instance=ExtResource("4_ehaqp")]
+position = Vector2(664, -223)
+collision_layer = 3
+collision_mask = 32771
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -392,17 +461,25 @@ text = "Infractions: 0"
 
 [node name="TEMPORARYTEXT" type="Label" parent="UI"]
 layout_mode = 0
-offset_left = 752.0
+offset_left = 664.0
 offset_top = 591.0
-offset_right = 933.0
+offset_right = 1070.0
 offset_bottom = 640.0
-text = "VISIBLE = LIMB
-NOT VISIBLE = NO LIMB"
+text = "VISIBLE = ORDER HAS THIS LIMB
+NOT VISIBLE = ORDER NO  HAS THIS LIMB"
+
+[node name="TEMPORARYTEXT2" type="Label" parent="UI"]
+layout_mode = 0
+offset_left = 153.0
+offset_top = 94.0
+offset_right = 559.0
+offset_bottom = 143.0
+text = "PRESS SEND ORDER WITH NO LIMBS ON TO START"
 
 [node name="Limbs" type="Node2D" parent="."]
 
 [node name="Limb" parent="Limbs" instance=ExtResource("5_rqysd")]
-position = Vector2(-383, -211)
+position = Vector2(-348, -193)
 
 [node name="Wall" type="StaticBody2D" parent="."]
 collision_layer = 32769
@@ -421,14 +498,20 @@ shape = SubResource("SegmentShape2D_qgl8p")
 shape = SubResource("SegmentShape2D_sxwj1")
 
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/leftArm/leftArmConnector" to="OrderScreen" method="_on_left_arm_connector_body_entered"]
+[connection signal="body_exited" from="OrderScreen/ZombieBuild/leftArm/leftArmConnector" to="OrderScreen" method="_on_left_arm_connector_body_exited"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/rightArm/rightArmConnector" to="OrderScreen" method="_on_right_arm_connector_body_entered"]
+[connection signal="body_exited" from="OrderScreen/ZombieBuild/rightArm/rightArmConnector" to="OrderScreen" method="_on_right_arm_connector_body_exited"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/leftFoot/leftFootConnector" to="OrderScreen" method="_on_left_foot_connector_body_entered"]
+[connection signal="body_exited" from="OrderScreen/ZombieBuild/leftFoot/leftFootConnector" to="OrderScreen" method="_on_left_foot_connector_body_exited"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/rightFoot/rightFootConnector" to="OrderScreen" method="_on_right_foot_connector_body_entered"]
+[connection signal="body_exited" from="OrderScreen/ZombieBuild/rightFoot/rightFootConnector" to="OrderScreen" method="_on_right_foot_connector_body_exited"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/head/headConnector" to="OrderScreen" method="_on_head_connector_body_entered"]
+[connection signal="body_exited" from="OrderScreen/ZombieBuild/head/headConnector" to="OrderScreen" method="_on_head_connector_body_exited"]
+[connection signal="button_down" from="WorkBench/Shelf/growNeedle" to="WorkBench" method="_on_grow_needle_button_down"]
 [connection signal="pressed" from="WorkBench/Shelf/growNeedle" to="WorkBench" method="_on_grow_needle_pressed"]
-[connection signal="pressed" from="WorkBench/Shelf/wartNeedle" to="WorkBench" method="_on_wart_needle_pressed"]
-[connection signal="pressed" from="WorkBench/Shelf/rainbowNeedle" to="WorkBench" method="_on_rainbow_needle_pressed"]
-[connection signal="pressed" from="WorkBench/Shelf/swapNeedle" to="WorkBench" method="_on_swap_needle_pressed"]
+[connection signal="button_down" from="WorkBench/Shelf/duplicateNeedle" to="WorkBench" method="_on_duplicate_needle_button_down"]
+[connection signal="button_down" from="WorkBench/Shelf/metalNeedle" to="WorkBench" method="_on_something_needle_button_down"]
+[connection signal="button_down" from="WorkBench/Shelf/animalNeedle" to="WorkBench" method="_on_something_else_needle_button_down"]
 [connection signal="pressed" from="WorkBench/headFreezer" to="WorkBench" method="_on_head_freezer_pressed"]
 [connection signal="pressed" from="WorkBench/armFreezer" to="WorkBench" method="_on_arm_freezer_pressed"]
 [connection signal="pressed" from="WorkBench/legFreezer" to="WorkBench" method="_on_leg_freezer_pressed"]

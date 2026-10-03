@@ -3,7 +3,7 @@ extends Control
 @onready var order_screen: Node2D = $"../OrderScreen"
 @onready var work_bench_button: Button = $workBenchButton
 @onready var work_bench: Node2D = $"../WorkBench"
-@onready var work_bench_background: ColorRect = $"../WorkBench/workBenchBackground"
+@onready var work_bench_background: TextureRect = $"../WorkBench/workBenchBackground"
 @onready var rep_counter: Label = $RepCounter
 @onready var infraction_counter: Label = $InfractionCounter
 

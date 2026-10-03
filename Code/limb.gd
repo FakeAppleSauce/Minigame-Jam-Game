@@ -21,11 +21,13 @@ var respawn = false
 var attached = false
 var tempVar = "nothin"
 
+var isInLimbConnector = null
+
 #0 Work Bench
 #1 Order Screen
 @export var limb_location: int = 0
 @export var limbID = 0
-@export var limbType = "null"
+@export var limbType = "arm"
 @export var effect = "none"
 
 @onready var ui: Control = $"../../UI"
@@ -33,6 +35,7 @@ var tempVar = "nothin"
 @onready var life_bar: ColorRect = $lifeBar
 @onready var life: Timer = $life
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 @onready var left_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/leftArm/leftJoint"
 @onready var right_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/rightArm/rightJoint"
@@ -48,19 +51,27 @@ func _ready() -> void:
 		apply_central_impulse(Vector2.RIGHT * 5000)
 		limbID = Global.limbID
 		limbType = Global.currentLimbSpawn
+		setUpTexture()
 		Global.limbID += 1
 	elif respawn == true:
 		attached = true
+		
+	if limbType == "head":
+		sprite_2d.rotation = 0
+	else:
+		sprite_2d.rotation = -45
+	
 
 
 
 func _process(_delta: float) -> void:
 	life_bar.position.x = sprite_2d.position.x - life_bar.size.x/2
+	@warning_ignore("integer_division")
 	life_bar.size.x = snapped(79/20 * life.time_left, 0.01)
+	@warning_ignore("integer_division")
 	life_bar.color.g = snapped((255/20 * life.time_left)*0.004, 0.01)
 	
 	if Input.is_action_just_pressed("Delete") && hovering == true:
-		queue_free()
 		if attached == true:
 			tempVar = Global.currentBuildStatus.keys().filter(
 				func(key): return Global.currentBuildStatus[key]["ID"] == limbID
@@ -68,7 +79,9 @@ func _process(_delta: float) -> void:
 			
 			Global.currentBuildStatus[tempVar[0]]["ID"] = null
 			Global.currentBuildStatus[tempVar[0]]["effect"] = "null"
-			Global.currentBuildStatus[tempVar[0]]["Occupied"] = false
+			Global.currentBuildStatus[tempVar[0]]["occupied"] = false
+		
+		queue_free()
 
 
 
@@ -77,7 +90,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Hold"):
 			distance_vector = get_global_mouse_position() - position
 			equipped = true
-			sprite_2d.scale = Vector2(0.101, 0.172)
+			sprite_2d.scale = Vector2(0.454, 0.454)
 
 	if Input.is_action_pressed("Hold") && equipped == true:
 		displacement = get_global_mouse_position() - position
@@ -87,7 +100,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_released("Hold"):
 		equipped = false
-		sprite_2d.scale = Vector2(0.071, 0.142)
+		sprite_2d.scale = Vector2(0.394, 0.394)
 		
 		
 	if ui.button_slide == true && limb_location == 0 && order_screen.visible == true && respawn == false:
@@ -105,7 +118,7 @@ func _physics_process(delta: float) -> void:
 			freeze = false
  
 
-func move_to_position(pos: Vector2, ID, joint, limbtype): 
+func move_to_position(pos: Vector2, ID, joint, limbtype, limbEffect): 
 	var limb_copy = LIMB.instantiate()
 	
 	
@@ -125,6 +138,9 @@ func move_to_position(pos: Vector2, ID, joint, limbtype):
 	limb_copy.set_collision_mask_value(2, true)
 	limb_copy.set_collision_layer_value(2, true)
 	limb_copy.limb_location = 1
+	limb_copy.effect = limbEffect
+	
+	limb_copy.setUpTexture()
 	call_deferred("queue_free")
 
 func _on_mouse_entered() -> void:
@@ -137,10 +153,29 @@ func _on_mouse_exited() -> void:
 func _on_note_position():
 	initial_Xposition = position.x
 
-	
+var temptempvar = "nothin"
 func _on_life_timeout() -> void:
+	if attached == true:
+		temptempvar = Global.currentBuildStatus.keys().filter(
+			func(key): return Global.currentBuildStatus[key]["ID"] == limbID
+		)
+		Global.currentBuildStatus[temptempvar[0]]["effect"] = "null"
+		Global.currentBuildStatus[temptempvar[0]]["ID"] = null
+		Global.currentBuildStatus[temptempvar[0]]["occupied"] = false
+	
 	queue_free()
 	
 func _on_delete_limbs():
 	if attached == true:
 		call_deferred("queue_free")
+
+
+func changeEffect(newEffect):
+	effect = newEffect
+	setUpTexture()
+
+func setUpTexture():
+	if limbType != "null":
+		print(Global.limbPNGPositions[str(limbType) + "_" + str(effect)])
+		print(effect)
+		sprite_2d.texture.region = Global.limbPNGPositions[str(limbType) + "_" + str(effect)]
