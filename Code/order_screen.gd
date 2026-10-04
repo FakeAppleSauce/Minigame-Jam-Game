@@ -20,6 +20,12 @@ extends Node2D
 @onready var right_foot_connector: Area2D = $ZombieBuild/rightFoot/rightFootConnector
 @onready var head_connector: Area2D = $ZombieBuild/head/headConnector
 
+@onready var left_arm_connector_sprite: Sprite2D = $ZombieBuild/leftArm/leftArmConnectorSprite
+@onready var right_arm_connector_sprite: Sprite2D = $ZombieBuild/rightArm/rightArmConnectorSprite
+@onready var left_foot_connector_sprite: Sprite2D = $ZombieBuild/leftFoot/leftFootConnectorSprite
+@onready var right_foot_connector_sprite: Sprite2D = $ZombieBuild/rightFoot/rightFootConnectorSprite
+@onready var head_connector_sprite: Sprite2D = $ZombieBuild/head/headConnectorSprite
+
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
 var limbEffects = [false, false, false, false, false]
@@ -55,6 +61,7 @@ func _on_left_arm_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(left_joint.position, body.limbID, left_joint, "arm", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("leftArm", body.effect, body.limbID)
+					left_arm_connector_sprite.visible = false
 
 
 func _on_right_arm_connector_body_entered(body: Node2D) -> void:
@@ -72,6 +79,7 @@ func _on_right_arm_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(right_joint.position, body.limbID, right_joint, "arm", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("rightArm", body.effect, body.limbID)
+					right_arm_connector_sprite.visible = false
 
 
 func _on_left_foot_connector_body_entered(body: Node2D) -> void:
@@ -89,6 +97,7 @@ func _on_left_foot_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(left_foot_joint.position, body.limbID, left_foot_joint, "leg", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("leftFoot", body.effect, body.limbID)
+					left_foot_connector_sprite.visible = false
 
 
 func _on_right_foot_connector_body_entered(body: Node2D) -> void:
@@ -106,6 +115,7 @@ func _on_right_foot_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(right_foot_joint.position, body.limbID, right_foot_joint, "leg", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("rightFoot", body.effect, body.limbID)
+					right_foot_connector.visible = false
 
 
 func _on_head_connector_body_entered(body: Node2D) -> void:
@@ -123,25 +133,46 @@ func _on_head_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(head_joint.position, body.limbID, head_joint, "head", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("head", body.effect, body.limbID)
+					head_connector_sprite.visible = false
 
 
 func setCurrentLimb(limbType: String, limbEffect: String, limbID: int):
 	Global.currentBuildStatus[str(limbType)]["effect"] = limbEffect 
 	Global.currentBuildStatus[str(limbType)]["ID"] = limbID 
 
+
 var tempVar = "nothin"
 func _run_order_visuals():
-	for i in 5:
-		if Global.currentOrder[limbs[i - 1]] == "null":
-			limbEffects[i - 1] = false
-		elif Global.currentOrder[limbs[i - 1]] == "none":
-			limbEffects[i - 1] = true
 	
-	leftArm.visible = limbEffects[1]
-	rightArm.visible = limbEffects[2]
-	leftFoot.visible = limbEffects[3]
-	rightFoot.visible = limbEffects[4]
-	head.visible = limbEffects[0]
+	if Global.currentOrder["head"] != "null":
+		head.visible = true
+		head.texture.region = Global.limbPNGPositions["head_" + str(Global.currentOrder["head"])]
+	else:
+		head.visible = false
+		
+	if Global.currentOrder["leftArm"] != "null":
+		leftArm.visible = true
+		leftArm.texture.region = Global.limbPNGPositions["arm_" + str(Global.currentOrder["leftArm"])]
+	else:
+		leftArm.visible = false
+		
+	if Global.currentOrder["rightArm"] != "null":
+		rightArm.visible = true
+		rightArm.texture.region = Global.limbPNGPositions["arm_" + str(Global.currentOrder["rightArm"])]
+	else:
+		rightArm.visible = false
+	
+	if Global.currentOrder["leftFoot"] != "null":
+		leftFoot.visible = true
+		leftFoot.texture.region = Global.limbPNGPositions["leg_" + str(Global.currentOrder["leftFoot"])]
+	else: 
+		leftFoot.visible = false
+	
+	if Global.currentOrder["rightFoot"] != "null":
+		rightFoot.visible = true
+		rightFoot.texture.region = Global.limbPNGPositions["leg_" + str(Global.currentOrder["rightFoot"])]
+	else:
+		rightFoot.visible = false
 
 
 func _on_left_arm_connector_body_exited(body: Node2D) -> void:

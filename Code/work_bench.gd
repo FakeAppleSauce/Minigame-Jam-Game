@@ -67,6 +67,7 @@ func _on_grow_needle_button_down() -> void:
 	needle_copy.position = get_global_mouse_position()
 	needles.add_child(needle_copy)
 	needle_copy.needleEffect = "grow"
+	Global.needleEquipped = true
 
 
 func _on_duplicate_needle_button_down() -> void:
@@ -74,6 +75,7 @@ func _on_duplicate_needle_button_down() -> void:
 	needle_copy.position = get_global_mouse_position()
 	needles.add_child(needle_copy)
 	needle_copy.needleEffect = "duplicate"
+	Global.needleEquipped = true
 
 
 #metal
@@ -82,6 +84,7 @@ func _on_something_needle_button_down() -> void:
 	needle_copy.position = get_global_mouse_position()
 	needles.add_child(needle_copy)
 	needle_copy.needleEffect = "metal"
+	Global.needleEquipped = true
 
 #animal
 func _on_something_else_needle_button_down() -> void:
@@ -89,3 +92,4 @@ func _on_something_else_needle_button_down() -> void:
 	needle_copy.position = get_global_mouse_position()
 	needles.add_child(needle_copy)
 	needle_copy.needleEffect = "animal"
+	Global.needleEquipped = true

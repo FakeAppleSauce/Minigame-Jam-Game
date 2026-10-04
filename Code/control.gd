@@ -75,6 +75,12 @@ func _on_send_order_pressed() -> void:
 			Global.currentBuildStatus[limbs[i-1]]["ID"] = null
 			Global.currentBuildStatus[limbs[i-1]]["occupied"] = false
 			
+		order_screen.left_arm_connector_sprite.visible = true
+		order_screen.right_arm_connector_sprite.visible = true
+		order_screen.left_foot_connector_sprite.visible = true
+		order_screen.right_foot_connector_sprite.visible = true
+		order_screen.head_connector_sprite.visible = true
+			
 		
 		
 	elif goods < 5:
@@ -84,6 +90,8 @@ func _on_send_order_pressed() -> void:
 		if Global.infractions >= 5:
 			await get_tree().create_timer(0.1).timeout
 			get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
+
+
 
 func change_counters(counter: String):
 	if counter == "rep":

@@ -14,7 +14,9 @@ func _process(_delta: float) -> void:
 	if Input.is_action_pressed("Hold"):
 		position = get_global_mouse_position()
 	else:
+		Global.needleEquipped = false
 		queue_free()
+		
 
 
 func _on_body_entered(body: Node2D) -> void:
@@ -25,3 +27,8 @@ func _on_body_entered(body: Node2D) -> void:
 		
 		if overlaps_body(body):
 			body.changeEffect(needleEffect)
+
+
+func _on_body_exited(body: Node2D) -> void:
+	if alreadyEntered == true:
+		alreadyEntered = false

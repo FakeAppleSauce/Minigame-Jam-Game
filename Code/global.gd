@@ -5,6 +5,8 @@ var currentLimbSpawn = "null"
 var infractions = 0
 var repAmount = 0
 
+var needleEquipped = false
+
 var currentBuildStatus = {
 	"head": {
 		"occupied": false,
@@ -42,7 +44,7 @@ var currentOrder = {
 }
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
-var unlockedEffects = ["null", "none"]
+var unlockedEffects = ["null", "none", "grow", "duplicate", "metal", "animal"]
 
 var limbPNGPositions = {
 	"leg_none": Rect2(0,0,256,256),
@@ -75,7 +77,7 @@ func _process(_delta: float) -> void:
 
 func createNewOrder():
 	for i in 5:
-		currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, 1)]
+		currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, len(unlockedEffects)) - 1]
 		print(str(limbs[i - 1]) + ": " + str(currentOrder[limbs[i - 1]]))
 	
 	runOrderVisuals.emit()

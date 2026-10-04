@@ -1,15 +1,151 @@
-[gd_scene load_steps=35 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=47 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://Code/order_screen.gd" id="1_2g5md"]
 [ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="2_etg1v"]
 [ext_resource type="Texture2D" uid="uid://cafusuljqc4ox" path="res://Textures/OrderBG.PNG" id="2_t5wyg"]
 [ext_resource type="Script" path="res://Code/work_bench.gd" id="3_85q7c"]
 [ext_resource type="PackedScene" uid="uid://b7hxlu5x3pnqj" path="res://Scenes/needle.tscn" id="4_ehaqp"]
+[ext_resource type="Texture2D" uid="uid://bvbffphm7enxt" path="res://Textures/Limbs.PNG" id="4_g80iv"]
 [ext_resource type="Script" path="res://Code/control.gd" id="4_gq4hs"]
 [ext_resource type="Texture2D" uid="uid://cci0aju1g74di" path="res://Textures/WorkBenchBG.PNG" id="4_r56wr"]
+[ext_resource type="Texture2D" uid="uid://d1wroerfbfxah" path="res://Textures/MiscStuff.PNG" id="4_t7lkh"]
 [ext_resource type="Texture2D" uid="uid://dtq38jjp0dfod" path="res://Textures/Needles.PNG" id="5_jfwcl"]
 [ext_resource type="PackedScene" uid="uid://0byordc8db3l" path="res://Scenes/limb.tscn" id="5_rqysd"]
 [ext_resource type="Texture2D" uid="uid://n6fh56tobv7t" path="res://Textures/Freezers.PNG" id="6_4hynp"]
+
+[sub_resource type="Animation" id="Animation_3qc5y"]
+resource_name = "movingConnectors"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("leftArm/leftArmConnectorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.261799]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rightArm/rightArmConnectorSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.261799]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("leftFoot/leftFootConnectorSprite:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.261799]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rightFoot/rightFootConnectorSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.261799]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("head/headConnectorSprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.766667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 0.261799]
+}
+
+[sub_resource type="Animation" id="Animation_bf4f8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("leftArm/leftArmConnectorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rightArm/rightArmConnectorSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("leftFoot/leftFootConnectorSprite:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rightFoot/rightFootConnectorSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("head/headConnectorSprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lm6vf"]
+_data = {
+"RESET": SubResource("Animation_bf4f8"),
+"movingConnectors": SubResource("Animation_3qc5y")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0in1h"]
 radius = 61.5385
@@ -17,6 +153,10 @@ height = 164.103
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5k2sm"]
 radius = 45.3982
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_najys"]
+atlas = ExtResource("4_t7lkh")
+region = Rect2(0, 0, 256, 256)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ky58f"]
 radius = 13.0
@@ -45,6 +185,30 @@ height = 58.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_indhl"]
 radius = 52.469
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ydogw"]
+atlas = ExtResource("4_g80iv")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfrtf"]
+atlas = ExtResource("4_t7lkh")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4xn0"]
+atlas = ExtResource("4_g80iv")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnmek"]
+atlas = ExtResource("4_g80iv")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cdi06"]
+atlas = ExtResource("4_g80iv")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qyqo2"]
+atlas = ExtResource("4_g80iv")
+region = Rect2(512, 512, 256, 256)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_r76pn"]
 atlas = ExtResource("5_jfwcl")
@@ -118,6 +282,12 @@ expand_mode = 1
 [node name="ZombieBuild" type="Node2D" parent="OrderScreen"]
 z_index = -1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OrderScreen/ZombieBuild"]
+libraries = {
+"": SubResource("AnimationLibrary_lm6vf")
+}
+autoplay = "movingConnectors"
+
 [node name="Torso" type="Sprite2D" parent="OrderScreen/ZombieBuild"]
 z_index = -3
 position = Vector2(339, 349)
@@ -126,7 +296,6 @@ texture = ExtResource("2_etg1v")
 metadata/_edit_group_ = true
 
 [node name="leftArm" type="Node2D" parent="OrderScreen/ZombieBuild"]
-metadata/_edit_group_ = true
 
 [node name="leftJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftArm"]
 z_index = 5
@@ -154,8 +323,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftArm/leftArmConnector"]
 shape = SubResource("CircleShape2D_5k2sm")
 
+[node name="leftArmConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/leftArm"]
+position = Vector2(230, 237)
+scale = Vector2(0.394531, 0.394531)
+texture = SubResource("AtlasTexture_najys")
+
 [node name="rightArm" type="Node2D" parent="OrderScreen/ZombieBuild"]
-metadata/_edit_group_ = true
 
 [node name="rightJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightArm"]
 position = Vector2(461, 229)
@@ -179,8 +352,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightArm/rightArmConnector"]
 shape = SubResource("CircleShape2D_w8i25")
 
+[node name="rightArmConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/rightArm"]
+position = Vector2(461, 229)
+scale = Vector2(0.394531, 0.394531)
+texture = SubResource("AtlasTexture_najys")
+
 [node name="leftFoot" type="Node2D" parent="OrderScreen/ZombieBuild"]
-metadata/_edit_group_ = true
 
 [node name="leftFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftFoot"]
 position = Vector2(275, 478)
@@ -204,8 +381,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftFoot/leftFootConnector"]
 shape = SubResource("CircleShape2D_chhwy")
 
+[node name="leftFootConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/leftFoot"]
+position = Vector2(275, 478)
+scale = Vector2(0.394531, 0.394531)
+texture = SubResource("AtlasTexture_najys")
+
 [node name="rightFoot" type="Node2D" parent="OrderScreen/ZombieBuild"]
-metadata/_edit_group_ = true
 
 [node name="rightFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightFoot"]
 position = Vector2(399, 478)
@@ -229,8 +410,12 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightFoot/rightFootConnector"]
 shape = SubResource("CircleShape2D_6iyli")
 
+[node name="rightFootConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/rightFoot"]
+position = Vector2(399, 478)
+scale = Vector2(0.394531, 0.394531)
+texture = SubResource("AtlasTexture_najys")
+
 [node name="head" type="Node2D" parent="OrderScreen/ZombieBuild"]
-metadata/_edit_group_ = true
 
 [node name="headJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/head"]
 position = Vector2(343, 194)
@@ -257,9 +442,15 @@ metadata/_edit_group_ = true
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/head/headConnector"]
 shape = SubResource("CircleShape2D_indhl")
 
+[node name="headConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/head"]
+position = Vector2(343, 194)
+scale = Vector2(0.462891, 0.462891)
+texture = SubResource("AtlasTexture_najys")
+
 [node name="CurrentOrder" type="Node2D" parent="OrderScreen"]
 
 [node name="Background" type="ColorRect" parent="OrderScreen/CurrentOrder"]
+z_index = -3
 offset_left = 639.0
 offset_top = 100.0
 offset_right = 1018.0
@@ -267,38 +458,77 @@ offset_bottom = 591.0
 color = Color(0.840262, 0.828184, 0, 1)
 
 [node name="OrderTorso" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(821.757, 312.5)
+visible = false
+z_index = -1
+position = Vector2(822.58, 325.528)
 scale = Vector2(0.187, 0.272)
 texture = ExtResource("2_etg1v")
 
 [node name="OrderLeftArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(737.757, 278.5)
-rotation = 0.31765
-scale = Vector2(0.0665, 0.206)
-texture = ExtResource("2_etg1v")
+position = Vector2(715.58, 322.528)
+rotation = -0.254818
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_ydogw")
+
+[node name="paperLA" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+z_index = -1
+position = Vector2(716, 324)
+rotation = 2.17643
+scale = Vector2(0.7, 0.585825)
+texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(924.757, 283.5)
-rotation = -0.443314
-scale = Vector2(0.0665, 0.206)
-texture = ExtResource("2_etg1v")
+position = Vector2(935.58, 318.528)
+rotation = 3.35976
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_a4xn0")
+flip_v = true
+
+[node name="paperRA" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+z_index = -1
+position = Vector2(936, 324)
+rotation = 0.970403
+scale = Vector2(0.7, 0.585825)
+texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderLeftLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(752, 449)
-rotation = 0.507891
-scale = Vector2(0.0665, 0.206)
-texture = ExtResource("2_etg1v")
+position = Vector2(750.58, 473.528)
+rotation = 4.32842
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_wnmek")
+flip_v = true
+
+[node name="paperLL" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+z_index = -1
+position = Vector2(751, 472)
+rotation = -1.2514
+scale = Vector2(0.7, 0.585825)
+texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(888, 440)
-rotation = -0.443314
-scale = Vector2(0.0665, 0.206)
-texture = ExtResource("2_etg1v")
+position = Vector2(889.58, 473.528)
+rotation = -1.14145
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_cdi06")
+
+[node name="paperRL" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+z_index = -1
+position = Vector2(895, 470)
+rotation = 1.35088
+scale = Vector2(0.7, 0.585825)
+texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderHead" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-position = Vector2(830.757, 176.5)
-scale = Vector2(0.15825, 0.165)
-texture = ExtResource("2_etg1v")
+position = Vector2(828, 194)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_qyqo2")
+
+[node name="paperH" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+z_index = -1
+position = Vector2(829, 190)
+rotation = 1.5708
+scale = Vector2(0.644792, 0.716349)
+texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="WorkBench" type="Node2D" parent="."]
 position = Vector2(-1162, 0)
