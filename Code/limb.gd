@@ -22,6 +22,7 @@ var attached = false
 var tempVar = "nothin"
 
 var isInLimbConnector = null
+var spriteSize = 0.394
 
 #0 Work Bench
 #1 Order Screen
@@ -42,6 +43,7 @@ var isInLimbConnector = null
 @onready var left_foot_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/leftFoot/leftFootJoint"
 @onready var right_foot_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/rightFoot/rightFootJoint"
 @onready var head_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/head/headJoint"
+
 
 
 func _ready() -> void:
@@ -80,6 +82,17 @@ func _process(_delta: float) -> void:
 			Global.currentBuildStatus[tempVar[0]]["ID"] = null
 			Global.currentBuildStatus[tempVar[0]]["effect"] = "null"
 			Global.currentBuildStatus[tempVar[0]]["occupied"] = false
+
+		if tempVar[0] == "head":
+			order_screen.head_connector_sprite.visible = true
+		elif tempVar[0] == "leftArm":
+			order_screen.left_arm_connector_sprite.visible = true
+		elif tempVar[0] == "rightArm":
+			order_screen.right_arm_connector_sprite.visible = true
+		elif tempVar[0] == "leftLeg":
+			order_screen.left_foot_connector_sprite.visible = true
+		elif tempVar[0] == "rightLeg":
+			order_screen.right_foot_connector_sprite.visible = true
 		
 		queue_free()
 
@@ -90,7 +103,7 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("Hold"):
 			distance_vector = get_global_mouse_position() - position
 			equipped = true
-			sprite_2d.scale = Vector2(0.454, 0.454)
+			sprite_2d.scale = Vector2(spriteSize + 0.15, spriteSize + 0.15)
 
 	if Input.is_action_pressed("Hold") && equipped == true:
 		displacement = get_global_mouse_position() - position
@@ -100,7 +113,7 @@ func _physics_process(delta: float) -> void:
 	
 	if Input.is_action_just_released("Hold"):
 		equipped = false
-		sprite_2d.scale = Vector2(0.394, 0.394)
+		sprite_2d.scale = Vector2(spriteSize, spriteSize)
 		
 		
 	if ui.button_slide == true && limb_location == 0 && order_screen.visible == true && respawn == false:
@@ -122,17 +135,21 @@ func move_to_position(pos: Vector2, ID, joint, limbtype, limbEffect):
 	var limb_copy = LIMB.instantiate()
 	
 	
-	limb_copy.position = pos - Vector2(0, 30)
 	limb_copy.respawn = true
 	limb_copy.limbID = ID
 	if limbtype != "head":
-		limb_copy.gravity_scale = 2
+		limb_copy.gravity_scale = 3
+		limb_copy.position = pos + Vector2(0, 70)
+	else:
+		limb_copy.position = pos - Vector2(25, 20)
 	
 	call_deferred("add_sibling", limb_copy)
 	await get_tree().process_frame
 	joint.node_a = limb_copy.get_path()
 	limb_copy.z_index = -5
 	limb_copy.limbType = limbtype
+	limb_copy.spriteSize = 0.7
+	limb_copy.sprite_2d.scale = Vector2(0.7, 0.7)
 	limb_copy.set_collision_mask_value(1, false)
 	limb_copy.set_collision_layer_value(1, false)
 	limb_copy.set_collision_mask_value(2, true)
@@ -162,11 +179,22 @@ func _on_life_timeout() -> void:
 		Global.currentBuildStatus[temptempvar[0]]["effect"] = "null"
 		Global.currentBuildStatus[temptempvar[0]]["ID"] = null
 		Global.currentBuildStatus[temptempvar[0]]["occupied"] = false
+		
+		if temptempvar[0] == "head":
+			order_screen.head_connector_sprite.visible = true
+		elif temptempvar[0] == "leftArm":
+			order_screen.left_arm_connector_sprite.visible = true
+		elif temptempvar[0] == "rightArm":
+			order_screen.right_arm_connector_sprite.visible = true
+		elif temptempvar[0] == "leftFoot":
+			order_screen.left_foot_connector_sprite.visible = true
+		elif temptempvar[0] == "rightFoot":
+			order_screen.right_foot_connector_sprite.visible = true
 	
 	queue_free()
 	
+	
 func _on_delete_limbs():
-	if attached == true:
 		call_deferred("queue_free")
 
 

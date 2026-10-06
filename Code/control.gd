@@ -6,6 +6,13 @@ extends Control
 @onready var work_bench_background: TextureRect = $"../WorkBench/workBenchBackground"
 @onready var rep_counter: Label = $RepCounter
 @onready var infraction_counter: Label = $InfractionCounter
+@onready var rep_multiplier: Label = $repMultiplier
+
+
+@onready var send_order_button: Button = $sendOrderButton
+@onready var temporarytext: Label = $TEMPORARYTEXT
+@onready var temporarytext_2: Label = $TEMPORARYTEXT2
+
 
 var button_slide = false
 var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
@@ -44,11 +51,18 @@ func openWorkBench():
 	if order_screen.visible == true:
 		work_bench_button.text = "Order Screen"
 		order_screen.visible = false
+		send_order_button.visible = false
+		temporarytext.visible = false
+		temporarytext_2.visible = false
+		
 
 		
 	elif order_screen.visible == false:
 		order_screen.visible = true
 		work_bench_button.text = "Work Bench"
+		send_order_button.visible = true
+		temporarytext.visible = true
+		temporarytext_2.visible = true
 
 	button_slide = true
 	notePosition.emit()
@@ -65,11 +79,19 @@ func _on_send_order_pressed() -> void:
 				#print(Global.currentBuildStatus[limbs[j - 1]]["effect"])
 			
 	if goods == 5:
-		Global.repAmount += 100
-		change_counters("rep")
+		if Global.repAmount != 0:
+			Global.repAmount += 50 * order_screen.repMultiplier
+			change_counters("rep")
+		else:
+			Global.repAmount = 1
+		
 		deleteAttachedLimbs.emit()
 		goods = 0
 		Global.createNewOrder()
+		order_screen._on_rep_timer_timeout()
+		order_screen.repMultiplier = 50
+		change_counters("repMultiplier")
+		
 		for i in 5:
 			Global.currentBuildStatus[limbs[i-1]]["effect"] = "null"
 			Global.currentBuildStatus[limbs[i-1]]["ID"] = null
@@ -88,6 +110,7 @@ func _on_send_order_pressed() -> void:
 		change_counters("infractions")
 		goods = 0
 		if Global.infractions >= 5:
+			Global.infractions = 0
 			await get_tree().create_timer(0.1).timeout
 			get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
 
@@ -102,4 +125,7 @@ func change_counters(counter: String):
 		infraction_counter.self_modulate.b = 1 - 1.00/4 * Global.infractions
 		infraction_counter.self_modulate.g = 1 - 1.00/4 * Global.infractions
 		infraction_counter.self_modulate.r = 1 - 1.00/4 * (Global.infractions - 3)
+	
+	elif counter == "repMultiplier":
+		rep_multiplier.text = "Reputation Multiplier: " + str(order_screen.repMultiplier)
 	

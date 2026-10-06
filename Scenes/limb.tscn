@@ -34,7 +34,7 @@ texture = SubResource("AtlasTexture_cn4v3")
 shape = SubResource("CapsuleShape2D_pndob")
 
 [node name="life" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 30.0
 autostart = true
 
 [node name="lifeBar" type="ColorRect" parent="."]

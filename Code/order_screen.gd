@@ -26,6 +26,10 @@ extends Node2D
 @onready var right_foot_connector_sprite: Sprite2D = $ZombieBuild/rightFoot/rightFootConnectorSprite
 @onready var head_connector_sprite: Sprite2D = $ZombieBuild/head/headConnectorSprite
 
+@onready var rep_timer: Timer = $CurrentOrder/repTimer
+
+@onready var ui: Control = $"../UI"
+
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
 var limbEffects = [false, false, false, false, false]
@@ -35,6 +39,8 @@ var overlappingRA = false
 var overlappingLL = false
 var overlappingRL = false
 var overlappingH = false
+
+var repMultiplier = 50
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -115,7 +121,7 @@ func _on_right_foot_connector_body_entered(body: Node2D) -> void:
 					body.move_to_position(right_foot_joint.position, body.limbID, right_foot_joint, "leg", body.effect)
 					body.gravity_scale = 1
 					setCurrentLimb("rightFoot", body.effect, body.limbID)
-					right_foot_connector.visible = false
+					right_foot_connector_sprite.visible = false
 
 
 func _on_head_connector_body_entered(body: Node2D) -> void:
@@ -198,3 +204,13 @@ func _on_right_foot_connector_body_exited(body: Node2D) -> void:
 func _on_head_connector_body_exited(body: Node2D) -> void:
 	if body.isInLimbConnector == "head":
 		body.isInLimbConnector = null
+
+
+func _on_rep_timer_timeout() -> void:
+	if repMultiplier == 50:
+		await get_tree().create_timer(4).timeout
+	
+	repMultiplier -= 1
+	rep_timer.wait_time = 1
+	ui.change_counters("repMultiplier")
+	rep_timer.start()

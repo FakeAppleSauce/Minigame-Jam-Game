@@ -13,6 +13,69 @@
 [ext_resource type="PackedScene" uid="uid://0byordc8db3l" path="res://Scenes/limb.tscn" id="5_rqysd"]
 [ext_resource type="Texture2D" uid="uid://n6fh56tobv7t" path="res://Textures/Freezers.PNG" id="6_4hynp"]
 
+[sub_resource type="Animation" id="Animation_bf4f8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("leftArm/leftArmConnectorSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rightArm/rightArmConnectorSprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("leftFoot/leftFootConnectorSprite:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rightFoot/rightFootConnectorSprite:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("head/headConnectorSprite:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
 [sub_resource type="Animation" id="Animation_3qc5y"]
 resource_name = "movingConnectors"
 length = 1.5
@@ -76,69 +139,6 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 0.261799]
-}
-
-[sub_resource type="Animation" id="Animation_bf4f8"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("leftArm/leftArmConnectorSprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("rightArm/rightArmConnectorSprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("leftFoot/leftFootConnectorSprite:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("rightFoot/rightFootConnectorSprite:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("head/headConnectorSprite:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lm6vf"]
@@ -318,6 +318,7 @@ shape = SubResource("CapsuleShape2D_0in1h")
 position = Vector2(230, 237)
 collision_layer = 2
 collision_mask = 2
+input_pickable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftArm/leftArmConnector"]
@@ -347,6 +348,7 @@ shape = SubResource("CapsuleShape2D_ky58f")
 position = Vector2(461, 229)
 collision_layer = 2
 collision_mask = 2
+input_pickable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightArm/rightArmConnector"]
@@ -376,6 +378,7 @@ shape = SubResource("CapsuleShape2D_mr453")
 position = Vector2(275, 478)
 collision_layer = 2
 collision_mask = 2
+input_pickable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/leftFoot/leftFootConnector"]
@@ -405,6 +408,7 @@ shape = SubResource("CapsuleShape2D_vjgxr")
 position = Vector2(399, 478)
 collision_layer = 2
 collision_mask = 2
+input_pickable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/rightFoot/rightFootConnector"]
@@ -420,7 +424,6 @@ texture = SubResource("AtlasTexture_najys")
 [node name="headJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/head"]
 position = Vector2(343, 194)
 node_b = NodePath("../invisibleHead")
-angular_limit_enabled = true
 angular_limit_lower = -1.0472
 angular_limit_upper = 1.0472
 
@@ -437,6 +440,7 @@ shape = SubResource("CapsuleShape2D_sj03v")
 position = Vector2(343, 194)
 collision_layer = 2
 collision_mask = 2
+input_pickable = false
 metadata/_edit_group_ = true
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="OrderScreen/ZombieBuild/head/headConnector"]
@@ -530,6 +534,8 @@ rotation = 1.5708
 scale = Vector2(0.644792, 0.716349)
 texture = SubResource("AtlasTexture_hfrtf")
 
+[node name="repTimer" type="Timer" parent="OrderScreen/CurrentOrder"]
+
 [node name="WorkBench" type="Node2D" parent="."]
 position = Vector2(-1162, 0)
 script = ExtResource("3_85q7c")
@@ -590,9 +596,9 @@ texture_normal = SubResource("AtlasTexture_3xccv")
 stretch_mode = 0
 
 [node name="headFreezer" type="TextureButton" parent="WorkBench"]
-offset_top = 337.0
+offset_top = 7.0
 offset_right = 178.0
-offset_bottom = 513.0
+offset_bottom = 183.0
 mouse_default_cursor_shape = 2
 texture_normal = SubResource("AtlasTexture_iwdfd")
 texture_pressed = SubResource("AtlasTexture_raj71")
@@ -600,18 +606,18 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="armFreezer" type="TextureButton" parent="WorkBench"]
-offset_top = 177.0
+offset_top = 169.0
 offset_right = 178.0
-offset_bottom = 363.0
+offset_bottom = 355.0
 texture_normal = SubResource("AtlasTexture_i4cx4")
 texture_pressed = SubResource("AtlasTexture_ad07x")
 ignore_texture_size = true
 stretch_mode = 4
 
 [node name="legFreezer" type="TextureButton" parent="WorkBench"]
-offset_top = 12.0
+offset_top = 329.0
 offset_right = 196.0
-offset_bottom = 191.0
+offset_bottom = 508.0
 texture_normal = SubResource("AtlasTexture_tirek")
 texture_pressed = SubResource("AtlasTexture_3x0t3")
 ignore_texture_size = true
@@ -669,6 +675,7 @@ offset_bottom = 604.0
 text = "Send Order"
 
 [node name="RepCounter" type="Label" parent="UI"]
+z_index = 10
 layout_mode = 0
 offset_left = 835.0
 offset_top = 32.0
@@ -679,6 +686,7 @@ theme_override_font_sizes/font_size = 30
 text = "Reputation: 0"
 
 [node name="InfractionCounter" type="Label" parent="UI"]
+z_index = 10
 layout_mode = 0
 offset_left = 511.0
 offset_top = 32.0
@@ -688,6 +696,18 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Infractions: 0"
+
+[node name="repMultiplier" type="Label" parent="UI"]
+z_index = 10
+layout_mode = 0
+offset_left = 40.0
+offset_top = 32.0
+offset_right = 358.0
+offset_bottom = 74.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 30
+text = "Reputation Multiplier: "
 
 [node name="TEMPORARYTEXT" type="Label" parent="UI"]
 layout_mode = 0
@@ -737,6 +757,7 @@ shape = SubResource("SegmentShape2D_sxwj1")
 [connection signal="body_exited" from="OrderScreen/ZombieBuild/rightFoot/rightFootConnector" to="OrderScreen" method="_on_right_foot_connector_body_exited"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/head/headConnector" to="OrderScreen" method="_on_head_connector_body_entered"]
 [connection signal="body_exited" from="OrderScreen/ZombieBuild/head/headConnector" to="OrderScreen" method="_on_head_connector_body_exited"]
+[connection signal="timeout" from="OrderScreen/CurrentOrder/repTimer" to="OrderScreen" method="_on_rep_timer_timeout"]
 [connection signal="button_down" from="WorkBench/Shelf/growNeedle" to="WorkBench" method="_on_grow_needle_button_down"]
 [connection signal="pressed" from="WorkBench/Shelf/growNeedle" to="WorkBench" method="_on_grow_needle_pressed"]
 [connection signal="button_down" from="WorkBench/Shelf/duplicateNeedle" to="WorkBench" method="_on_duplicate_needle_button_down"]
