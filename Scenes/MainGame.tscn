@@ -462,7 +462,6 @@ offset_bottom = 591.0
 color = Color(0.840262, 0.828184, 0, 1)
 
 [node name="OrderTorso" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-visible = false
 z_index = -1
 position = Vector2(822.58, 325.528)
 scale = Vector2(0.187, 0.272)
@@ -725,6 +724,15 @@ offset_top = 94.0
 offset_right = 559.0
 offset_bottom = 143.0
 text = "PRESS SEND ORDER WITH NO LIMBS ON TO START"
+
+[node name="TEMPORARYTEXT3" type="Label" parent="UI"]
+visible = false
+layout_mode = 0
+offset_left = 687.0
+offset_top = 135.0
+offset_right = 1066.0
+offset_bottom = 184.0
+text = "PUT LIMB HERE TO MOVE IT TO ORDER SCREEN ->"
 
 [node name="Limbs" type="Node2D" parent="."]
 

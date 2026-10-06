@@ -12,6 +12,7 @@ extends Control
 @onready var send_order_button: Button = $sendOrderButton
 @onready var temporarytext: Label = $TEMPORARYTEXT
 @onready var temporarytext_2: Label = $TEMPORARYTEXT2
+@onready var temporarytext_3: Label = $TEMPORARYTEXT3
 
 
 var button_slide = false
@@ -54,6 +55,7 @@ func openWorkBench():
 		send_order_button.visible = false
 		temporarytext.visible = false
 		temporarytext_2.visible = false
+		temporarytext_3.visible = true
 		
 
 		
@@ -63,6 +65,7 @@ func openWorkBench():
 		send_order_button.visible = true
 		temporarytext.visible = true
 		temporarytext_2.visible = true
+		temporarytext_3.visible = false
 
 	button_slide = true
 	notePosition.emit()
