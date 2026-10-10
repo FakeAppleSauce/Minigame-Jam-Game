@@ -9,13 +9,16 @@ extends Control
 @onready var rep_multiplier: Label = $repMultiplier
 
 
-@onready var send_order_button: Button = $sendOrderButton
+@onready var send_order_button: Button = $"../OrderScreen/sendOrderButton"
 @onready var temporarytext: Label = $TEMPORARYTEXT
 @onready var temporarytext_2: Label = $TEMPORARYTEXT2
 @onready var temporarytext_3: Label = $TEMPORARYTEXT3
 
+@onready var camera_2d: Camera2D = $"../Camera2D"
+
 
 var button_slide = false
+var workBenchUp = false
 var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
 
 signal notePosition
@@ -28,20 +31,24 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 	
+	
+#right = 576, left = -576
 func _physics_process(_delta: float) -> void:
 	if button_slide == true:
-		if order_screen.visible == false:
-			if work_bench_button.position.x != 1151.6 && work_bench.position.x != 0:
-				work_bench_button.position.x = move_toward(work_bench_button.position.x, 1151.6, 50)
-				work_bench.position.x = move_toward(work_bench.position.x, 0, 50)
+		if workBenchUp == false:
+			if camera_2d.position.x != -576:
+				work_bench_button.position.x = move_toward(work_bench_button.position.x, -1, 2.57)
+				camera_2d.position.x = move_toward(camera_2d.position.x, -576, 50)
 			else:
 				button_slide = false
-		elif order_screen.visible == true:
-			if work_bench_button.position.x != 58.2 && work_bench.position.x != -1161:
-				work_bench_button.position.x = move_toward(work_bench_button.position.x, 58.2, 50)
-				work_bench.position.x = move_toward(work_bench.position.x, -1161, 50)
+				workBenchUp = true
+		elif workBenchUp == true:
+			if camera_2d.position.x != 576:
+				work_bench_button.position.x = move_toward(work_bench_button.position.x, 58.2, 2.57)
+				camera_2d.position.x = move_toward(camera_2d.position.x, 576, 50)
 			else:
 				button_slide = false
+				workBenchUp = false
 
 
 func _on_button_pressed() -> void:
@@ -51,21 +58,12 @@ func _on_button_pressed() -> void:
 func openWorkBench():
 	if order_screen.visible == true:
 		work_bench_button.text = "Order Screen"
-		order_screen.visible = false
-		send_order_button.visible = false
-		temporarytext.visible = false
-		temporarytext_2.visible = false
-		temporarytext_3.visible = true
 		
 
 		
 	elif order_screen.visible == false:
 		order_screen.visible = true
 		work_bench_button.text = "Work Bench"
-		send_order_button.visible = true
-		temporarytext.visible = true
-		temporarytext_2.visible = true
-		temporarytext_3.visible = false
 
 	button_slide = true
 	notePosition.emit()

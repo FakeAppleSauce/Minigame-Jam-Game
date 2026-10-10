@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://0byordc8db3l"]
+[gd_scene load_steps=9 format=3 uid="uid://0byordc8db3l"]
 
 [ext_resource type="Script" path="res://Code/limb.gd" id="1_b4h7g"]
 [ext_resource type="Texture2D" uid="uid://bvbffphm7enxt" path="res://Textures/Limbs.PNG" id="2_n21ta"]
+[ext_resource type="Texture2D" uid="uid://d1wroerfbfxah" path="res://Textures/MiscStuff.PNG" id="3_jq6aa"]
+[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="4_7wuba"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkipp"]
 resource_local_to_scene = true
@@ -15,6 +17,10 @@ region = Rect2(0, 0, 256, 256)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pndob"]
 radius = 37.0
 height = 144.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wtkmk"]
+atlas = ExtResource("3_jq6aa")
+region = Rect2(256, 0, 256, 256)
 
 [node name="Limb" type="RigidBody2D"]
 z_index = 4
@@ -44,6 +50,45 @@ offset_right = 37.0
 offset_bottom = -41.0
 color = Color(1, 1, 0.0745098, 1)
 metadata/_edit_use_anchors_ = true
+
+[node name="effectParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.48
+lifetime_randomness = 1.0
+texture = SubResource("AtlasTexture_wtkmk")
+emission_shape = 1
+emission_sphere_radius = 57.89
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 424.24
+angular_velocity_max = 94.55
+damping_min = 12.626
+damping_max = 18.182
+scale_amount_min = 0.1
+scale_amount_max = 0.25
+
+[node name="attachParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 25
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.48
+lifetime_randomness = 1.0
+texture = ExtResource("4_7wuba")
+emission_shape = 1
+emission_sphere_radius = 57.89
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 424.24
+angular_velocity_max = 94.55
+damping_min = 12.626
+damping_max = 18.182
+scale_amount_min = 0.01
+scale_amount_max = 0.05
+color = Color(1, 0.180392, 0.0745098, 0.729412)
 
 [connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

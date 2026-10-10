@@ -24,6 +24,7 @@ var tempVar = "nothin"
 var isInLimbConnector = null
 var spriteSize = 0.394
 
+
 #0 Work Bench
 #1 Order Screen
 @export var limb_location: int = 0
@@ -44,6 +45,8 @@ var spriteSize = 0.394
 @onready var right_foot_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/rightFoot/rightFootJoint"
 @onready var head_joint: PinJoint2D = $"../../OrderScreen/ZombieBuild/head/headJoint"
 
+@onready var effect_particles: CPUParticles2D = $effectParticles
+@onready var attach_particles: CPUParticles2D = $attachParticles
 
 
 func _ready() -> void:
@@ -57,6 +60,7 @@ func _ready() -> void:
 		Global.limbID += 1
 	elif respawn == true:
 		attached = true
+		attach_particles.emitting = true
 		
 	if limbType == "head":
 		sprite_2d.rotation = 0
@@ -116,13 +120,7 @@ func _physics_process(delta: float) -> void:
 		sprite_2d.scale = Vector2(spriteSize, spriteSize)
 		
 		
-	if ui.button_slide == true && limb_location == 0 && order_screen.visible == true && respawn == false:
-		freeze = true
-		position.x = move_toward(position.x, initial_Xposition - 1162, 50)
-	elif ui.button_slide == true && limb_location == 0 && order_screen.visible == false && respawn == false:
-		position.x = move_toward(position.x, initial_Xposition + 1162, 50)
-		if position.x >= initial_Xposition + 1162:
-			freeze = false
+
 			
 	if is_moving == true:
 		global_position = global_position.move_toward(target_position, 500* delta)
@@ -191,6 +189,7 @@ func _on_life_timeout() -> void:
 		elif temptempvar[0] == "rightFoot":
 			order_screen.right_foot_connector_sprite.visible = true
 	
+
 	queue_free()
 	
 	
@@ -200,10 +199,9 @@ func _on_delete_limbs():
 
 func changeEffect(newEffect):
 	effect = newEffect
+	effect_particles.emitting = true
 	setUpTexture()
 
 func setUpTexture():
 	if limbType != "null":
-		print(Global.limbPNGPositions[str(limbType) + "_" + str(effect)])
-		print(effect)
 		sprite_2d.texture.region = Global.limbPNGPositions[str(limbType) + "_" + str(effect)]

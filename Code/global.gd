@@ -7,6 +7,8 @@ var repAmount = 0
 
 var needleEquipped = false
 
+var onOrderScreen = true
+
 var currentBuildStatus = {
 	"head": {
 		"occupied": false,

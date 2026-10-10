@@ -53,93 +53,98 @@ func _process(_delta: float) -> void:
 
 
 func _on_left_arm_connector_body_entered(body: Node2D) -> void:
-	if body.isInLimbConnector == null:
-		body.isInLimbConnector = "leftArm"
-	
-	while Input.is_action_pressed("Hold"):
-		await get_tree().process_frame
+	if body.limb_location == 1:
+		if body.isInLimbConnector == null:
+			body.isInLimbConnector = "leftArm"
+		
+		while Input.is_action_pressed("Hold"):
+			await get_tree().process_frame
 
-	if left_arm_connector.overlaps_body(body) && body.isInLimbConnector == "leftArm":
-		if body is RigidBody2D:
-			if Global.currentBuildStatus["leftArm"]["occupied"] == false:
-				if body.limbType == "arm":
-					Global.currentBuildStatus["leftArm"]["occupied"] = true
-					body.move_to_position(left_joint.position, body.limbID, left_joint, "arm", body.effect)
-					body.gravity_scale = 1
-					setCurrentLimb("leftArm", body.effect, body.limbID)
-					left_arm_connector_sprite.visible = false
+		if left_arm_connector.overlaps_body(body) && body.isInLimbConnector == "leftArm":
+			if body is RigidBody2D:
+				if Global.currentBuildStatus["leftArm"]["occupied"] == false:
+					if body.limbType == "arm":
+						Global.currentBuildStatus["leftArm"]["occupied"] = true
+						body.move_to_position(left_joint.position, body.limbID, left_joint, "arm", body.effect)
+						body.gravity_scale = 1
+						setCurrentLimb("leftArm", body.effect, body.limbID)
+						left_arm_connector_sprite.visible = false
 
 
 func _on_right_arm_connector_body_entered(body: Node2D) -> void:
-	if body.isInLimbConnector == null:
-		body.isInLimbConnector = "rightArm"
-	
-	while Input.is_action_pressed("Hold"):
-		await get_tree().process_frame
-	
-	if right_arm_connector.overlaps_body(body) && body.isInLimbConnector == "rightArm":
-		if body is RigidBody2D:
-			if Global.currentBuildStatus["rightArm"]["occupied"] == false:
-				if body.limbType == "arm":
-					Global.currentBuildStatus["rightArm"]["occupied"] = true
-					body.move_to_position(right_joint.position, body.limbID, right_joint, "arm", body.effect)
-					body.gravity_scale = 1
-					setCurrentLimb("rightArm", body.effect, body.limbID)
-					right_arm_connector_sprite.visible = false
+	if body.limb_location == 1:
+		if body.isInLimbConnector == null:
+			body.isInLimbConnector = "rightArm"
+		
+		while Input.is_action_pressed("Hold"):
+			await get_tree().process_frame
+		
+		if right_arm_connector.overlaps_body(body) && body.isInLimbConnector == "rightArm":
+			if body is RigidBody2D:
+				if Global.currentBuildStatus["rightArm"]["occupied"] == false:
+					if body.limbType == "arm":
+						Global.currentBuildStatus["rightArm"]["occupied"] = true
+						body.move_to_position(right_joint.position, body.limbID, right_joint, "arm", body.effect)
+						body.gravity_scale = 1
+						setCurrentLimb("rightArm", body.effect, body.limbID)
+						right_arm_connector_sprite.visible = false
 
 
 func _on_left_foot_connector_body_entered(body: Node2D) -> void:
-	if body.isInLimbConnector == null:
-		body.isInLimbConnector = "leftFoot"
+	if body.limb_location == 1:
+		if body.isInLimbConnector == null:
+			body.isInLimbConnector = "leftFoot"
+			
+		while Input.is_action_pressed("Hold"):
+			await get_tree().process_frame
 		
-	while Input.is_action_pressed("Hold"):
-		await get_tree().process_frame
-	
-	if left_foot_connector.overlaps_body(body) && body.isInLimbConnector == "leftFoot":
-		if body is RigidBody2D:
-			if Global.currentBuildStatus["leftFoot"]["occupied"] == false:
-				if body.limbType == "leg":
-					Global.currentBuildStatus["leftFoot"]["occupied"] = true
-					body.move_to_position(left_foot_joint.position, body.limbID, left_foot_joint, "leg", body.effect)
-					body.gravity_scale = 1
-					setCurrentLimb("leftFoot", body.effect, body.limbID)
-					left_foot_connector_sprite.visible = false
+		if left_foot_connector.overlaps_body(body) && body.isInLimbConnector == "leftFoot":
+			if body is RigidBody2D:
+				if Global.currentBuildStatus["leftFoot"]["occupied"] == false:
+					if body.limbType == "leg":
+						Global.currentBuildStatus["leftFoot"]["occupied"] = true
+						body.move_to_position(left_foot_joint.position, body.limbID, left_foot_joint, "leg", body.effect)
+						body.gravity_scale = 1
+						setCurrentLimb("leftFoot", body.effect, body.limbID)
+						left_foot_connector_sprite.visible = false
 
 
 func _on_right_foot_connector_body_entered(body: Node2D) -> void:
-	if body.isInLimbConnector == null:
-		body.isInLimbConnector = "rightFoot"
-	
-	while Input.is_action_pressed("Hold"):
-		await get_tree().process_frame
-	
-	if right_foot_connector.overlaps_body(body) && body.isInLimbConnector == "rightFoot":
-		if body is RigidBody2D:
-			if Global.currentBuildStatus["rightFoot"]["occupied"] == false:
-				if body.limbType == "leg":
-					Global.currentBuildStatus["rightFoot"]["occupied"] = true
-					body.move_to_position(right_foot_joint.position, body.limbID, right_foot_joint, "leg", body.effect)
-					body.gravity_scale = 1
-					setCurrentLimb("rightFoot", body.effect, body.limbID)
-					right_foot_connector_sprite.visible = false
+	if body.limb_location == 1:
+		if body.isInLimbConnector == null:
+			body.isInLimbConnector = "rightFoot"
+		
+		while Input.is_action_pressed("Hold"):
+			await get_tree().process_frame
+		
+		if right_foot_connector.overlaps_body(body) && body.isInLimbConnector == "rightFoot":
+			if body is RigidBody2D:
+				if Global.currentBuildStatus["rightFoot"]["occupied"] == false:
+					if body.limbType == "leg":
+						Global.currentBuildStatus["rightFoot"]["occupied"] = true
+						body.move_to_position(right_foot_joint.position, body.limbID, right_foot_joint, "leg", body.effect)
+						body.gravity_scale = 1
+						setCurrentLimb("rightFoot", body.effect, body.limbID)
+						right_foot_connector_sprite.visible = false
 
 
 func _on_head_connector_body_entered(body: Node2D) -> void:
-	if body.isInLimbConnector == null:
-		body.isInLimbConnector = "head"
-	
-	while Input.is_action_pressed("Hold"):
-		await get_tree().process_frame
-	
-	if head_connector.overlaps_body(body) && body.isInLimbConnector == "head":
-		if body is RigidBody2D:
-			if Global.currentBuildStatus["head"]["occupied"] == false:
-				if body.limbType == "head":
-					Global.currentBuildStatus["head"]["occupied"] = true
-					body.move_to_position(head_joint.position, body.limbID, head_joint, "head", body.effect)
-					body.gravity_scale = 1
-					setCurrentLimb("head", body.effect, body.limbID)
-					head_connector_sprite.visible = false
+	if body.limb_location == 1:
+		if body.isInLimbConnector == null:
+			body.isInLimbConnector = "head"
+		
+		while Input.is_action_pressed("Hold"):
+			await get_tree().process_frame
+		
+		if head_connector.overlaps_body(body) && body.isInLimbConnector == "head":
+			if body is RigidBody2D:
+				if Global.currentBuildStatus["head"]["occupied"] == false:
+					if body.limbType == "head":
+						Global.currentBuildStatus["head"]["occupied"] = true
+						body.move_to_position(head_joint.position, body.limbID, head_joint, "head", body.effect)
+						body.gravity_scale = 1
+						setCurrentLimb("head", body.effect, body.limbID)
+						head_connector_sprite.visible = false
 
 
 func setCurrentLimb(limbType: String, limbEffect: String, limbID: int):
