@@ -6,7 +6,10 @@ extends Control
 @onready var work_bench_background: TextureRect = $"../WorkBench/workBenchBackground"
 @onready var rep_counter: Label = $RepCounter
 @onready var infraction_counter: Label = $InfractionCounter
+@onready var order_number: Label = $"../OrderScreen/CurrentOrder/orderNumber"
 @onready var rep_multiplier: Label = $repMultiplier
+@onready var multiplier_particles: CPUParticles2D = $repMultiplier/multiplierParticles
+
 
 
 @onready var send_order_button: Button = $"../OrderScreen/sendOrderButton"
@@ -21,6 +24,9 @@ var button_slide = false
 var workBenchUp = false
 var limbs = ["leftArm", "rightArm", "leftFoot", "rightFoot", "head"]
 
+var multiplierCurrentShake: float = 0
+var shake_decay_rate: float = 5.0
+
 signal notePosition
 signal deleteAttachedLimbs
 
@@ -28,7 +34,16 @@ func _ready() -> void:
 	pass
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
+	if multiplierCurrentShake > 0:
+		multiplierCurrentShake = lerp(multiplierCurrentShake, 0.0, shake_decay_rate * delta)
+		
+		rep_multiplier.position = Vector2(906, 21) + Vector2(
+			randf_range(-multiplierCurrentShake, multiplierCurrentShake),
+			randf_range(-multiplierCurrentShake, multiplierCurrentShake)
+		)
+	else:
+		rep_multiplier.position = Vector2(906, 21)
 	pass
 	
 	
@@ -70,6 +85,8 @@ func openWorkBench():
 
 var goods = 0
 
+
+
 func _on_send_order_pressed() -> void:
 	for i in 5:
 		if Global.currentBuildStatus[limbs[i - 1]]["effect"] == Global.currentOrder[limbs[i - 1]]:
@@ -77,15 +94,15 @@ func _on_send_order_pressed() -> void:
 		else:
 			for j in 5:
 				pass
-				#print(Global.currentBuildStatus[limbs[j - 1]]["effect"])
 			
 	if goods == 5:
-		if Global.repAmount != 0:
+		if Global.orderNumber != 0:
 			Global.repAmount += 50 * order_screen.repMultiplier
 			change_counters("rep")
 		else:
 			Global.repAmount = 1
 		
+		Global.orderNumber += 1
 		deleteAttachedLimbs.emit()
 		goods = 0
 		Global.createNewOrder()
@@ -128,5 +145,11 @@ func change_counters(counter: String):
 		infraction_counter.self_modulate.r = 1 - 1.00/4 * (Global.infractions - 3)
 	
 	elif counter == "repMultiplier":
-		rep_multiplier.text = "Reputation Multiplier: " + str(order_screen.repMultiplier)
+		rep_multiplier.text = "+ " + str(50 * order_screen.repMultiplier)
+		rep_multiplier.add_theme_color_override("font_color", Color(1.00/50 * (order_screen.repMultiplier), 0.05, 0, 1))
+		multiplierCurrentShake = order_screen.repMultiplier/10
+		multiplier_particles.scale_amount_max = 10.0000/50 * order_screen.repMultiplier
+		
+	elif counter == "order_number":
+		order_number.text = str(Global.orderNumber)
 	

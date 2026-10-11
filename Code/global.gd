@@ -9,6 +9,10 @@ var needleEquipped = false
 
 var onOrderScreen = true
 
+var orderNumber = 0
+
+var tutorialOn = false
+
 var currentBuildStatus = {
 	"head": {
 		"occupied": false,
@@ -46,7 +50,7 @@ var currentOrder = {
 }
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
-var unlockedEffects = ["null", "none", "grow", "duplicate", "metal", "animal"]
+var unlockedEffects = ["null", "none"]
 
 var limbPNGPositions = {
 	"leg_none": Rect2(0,0,256,256),
@@ -80,6 +84,25 @@ func _process(_delta: float) -> void:
 func createNewOrder():
 	for i in 5:
 		currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, len(unlockedEffects)) - 1]
-		print(str(limbs[i - 1]) + ": " + str(currentOrder[limbs[i - 1]]))
+	
+	if orderNumber == 9:
+		unlockedEffects.append("grow")
+	if orderNumber == 13:
+		unlockedEffects.append("metal")
+	if orderNumber == 17:
+		unlockedEffects.append("duplicate")
+	if orderNumber == 21:
+		unlockedEffects.append("animal")
+		
 	
 	runOrderVisuals.emit()
+
+
+#Introduction
+#Learn basics with no effects (empty and not empty limbs) [Orders 1-8]
+#Unlock first effect (big) + introduction to how needles work [Orders 9-12]
+#Unlock 2nd effect (metal) [Orders 13-16]
+#Unlock 3rd effect (duplicate) [Orders 17-20]
+#Unlock 4th effect (derp) [Orders 21-24]
+#End of Story
+#Start Infinite

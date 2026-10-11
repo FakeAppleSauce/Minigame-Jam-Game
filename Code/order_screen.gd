@@ -30,6 +30,8 @@ extends Node2D
 
 @onready var ui: Control = $"../UI"
 
+@onready var current_order: Node2D = $CurrentOrder
+
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
 var limbEffects = [false, false, false, false, false]
@@ -49,7 +51,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	if moveOrderPage == true && current_order.position.y != -1000:
+		current_order.position.y = move_toward(current_order.position.y, -1000, 50)
+		
+	elif moveOrderPage == false && current_order.position.y != 0:
+		current_order.position.y = move_toward(current_order.position.y, 0, 50)
 
 
 func _on_left_arm_connector_body_entered(body: Node2D) -> void:
@@ -153,8 +159,11 @@ func setCurrentLimb(limbType: String, limbEffect: String, limbID: int):
 
 
 var tempVar = "nothin"
+var moveOrderPage = false
 func _run_order_visuals():
+	moveOrderPage = true
 	
+	await get_tree().create_timer(1).timeout
 	if Global.currentOrder["head"] != "null":
 		head.visible = true
 		head.texture.region = Global.limbPNGPositions["head_" + str(Global.currentOrder["head"])]
@@ -184,6 +193,9 @@ func _run_order_visuals():
 		rightFoot.texture.region = Global.limbPNGPositions["leg_" + str(Global.currentOrder["rightFoot"])]
 	else:
 		rightFoot.visible = false
+	
+	ui.change_counters("order_number")
+	moveOrderPage = false
 
 
 func _on_left_arm_connector_body_exited(body: Node2D) -> void:

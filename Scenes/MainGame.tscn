@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=49 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://Code/order_screen.gd" id="1_2g5md"]
 [ext_resource type="Texture2D" uid="uid://cafusuljqc4ox" path="res://Textures/OrderBG.PNG" id="2_t5wyg"]
@@ -253,17 +253,24 @@ region = Rect2(256, 256, 256, 256)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqlhv"]
 size = Vector2(69, 187)
 
+[sub_resource type="Gradient" id="Gradient_snwts"]
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
+
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_qgl8p"]
 a = Vector2(-1, -3)
 b = Vector2(-2, 649)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_gjnjl"]
-a = Vector2(-1, -2)
+a = Vector2(-1153, 0)
 b = Vector2(1153, -2)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_sxwj1"]
 a = Vector2(1154, -2)
 b = Vector2(1154, 651)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_7gcs3"]
+a = Vector2(-1154, 650)
+b = Vector2(-1154, -1)
 
 [node name="MainGame" type="Node"]
 
@@ -471,7 +478,7 @@ scale = Vector2(0.609941, 0.609941)
 texture = ExtResource("3_44emb")
 
 [node name="OrderLeftArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-self_modulate = Color(0.890258, 0.882867, 7.70092e-07, 0.690196)
+visible = false
 position = Vector2(710, 311)
 rotation = -0.254818
 scale = Vector2(0.386556, 0.386556)
@@ -485,7 +492,7 @@ scale = Vector2(0.536346, 0.460056)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-self_modulate = Color(0.878431, 0.854902, 0, 0.780392)
+visible = false
 position = Vector2(945.62, 322.369)
 rotation = 3.35976
 scale = Vector2(0.390948, 0.395365)
@@ -500,7 +507,7 @@ scale = Vector2(0.556284, 0.46555)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderLeftLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-self_modulate = Color(0.858824, 0.85098, 0, 0.780392)
+visible = false
 position = Vector2(763.461, 502.537)
 rotation = 4.32842
 scale = Vector2(0.343, 0.343)
@@ -515,7 +522,7 @@ scale = Vector2(0.532, 0.445)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-self_modulate = Color(0.780392, 0.776471, 0, 0.670588)
+visible = false
 position = Vector2(881.422, 502.833)
 rotation = -1.14145
 scale = Vector2(0.342973, 0.342973)
@@ -529,7 +536,7 @@ scale = Vector2(0.531627, 0.444915)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderHead" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
-self_modulate = Color(0.819608, 0.815686, 0, 0.670588)
+visible = false
 position = Vector2(830, 169)
 scale = Vector2(0.328125, 0.328125)
 texture = SubResource("AtlasTexture_qyqo2")
@@ -542,6 +549,17 @@ scale = Vector2(0.47811, 0.531169)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="repTimer" type="Timer" parent="OrderScreen/CurrentOrder"]
+
+[node name="orderNumber" type="Label" parent="OrderScreen/CurrentOrder"]
+offset_left = 957.0
+offset_top = 100.0
+offset_right = 986.0
+offset_bottom = 169.0
+theme_override_colors/font_color = Color(0.564706, 0.505882, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 50
+text = "0"
 
 [node name="WorkBench" type="Node2D" parent="."]
 position = Vector2(-1154, 0)
@@ -670,7 +688,7 @@ position = Vector2(1154, 0)
 
 [node name="Needle" parent="WorkBench/Needles" instance=ExtResource("4_ehaqp")]
 z_as_relative = false
-position = Vector2(522, 229)
+position = Vector2(180, -193)
 collision_layer = 3
 collision_mask = 32771
 
@@ -701,10 +719,10 @@ text = "Work Bench"
 [node name="RepCounter" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
-offset_left = 835.0
-offset_top = 32.0
-offset_right = 1052.0
-offset_bottom = 94.0
+offset_left = 769.0
+offset_top = 41.0
+offset_right = 986.0
+offset_bottom = 103.0
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Reputation: 0"
@@ -713,9 +731,9 @@ text = "Reputation: 0"
 z_index = 10
 layout_mode = 0
 offset_left = 511.0
-offset_top = 32.0
+offset_top = 40.0
 offset_right = 701.0
-offset_bottom = 74.0
+offset_bottom = 82.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
@@ -724,14 +742,32 @@ text = "Infractions: 0"
 [node name="repMultiplier" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
-offset_left = 40.0
-offset_top = 32.0
-offset_right = 358.0
-offset_bottom = 74.0
-theme_override_colors/font_color = Color(1, 1, 1, 1)
+offset_left = 906.0
+offset_top = 21.0
+offset_right = 999.0
+offset_bottom = 63.0
+rotation = -0.202458
+theme_override_colors/font_color = Color(1, 0.0627451, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
-text = "Reputation Multiplier: "
+text = "x 1"
+
+[node name="multiplierParticles" type="CPUParticles2D" parent="UI/repMultiplier"]
+self_modulate = Color(1, 1, 1, 0.772549)
+z_index = -1
+position = Vector2(24.1851, 26.4023)
+amount = 75
+emission_shape = 3
+emission_rect_extents = Vector2(30, 10)
+gravity = Vector2(0, -200)
+angular_velocity_max = 100.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 0.0
+scale_amount_max = 0.0
+color_initial_ramp = SubResource("Gradient_snwts")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
 
 [node name="TEMPORARYTEXT" type="Label" parent="UI"]
 layout_mode = 0
@@ -781,6 +817,9 @@ shape = SubResource("SegmentShape2D_gjnjl")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Wall2"]
 shape = SubResource("SegmentShape2D_sxwj1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+shape = SubResource("SegmentShape2D_7gcs3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 325)

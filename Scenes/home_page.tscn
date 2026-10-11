@@ -23,4 +23,12 @@ offset_right = 708.0
 offset_bottom = 583.0
 text = "Begin"
 
+[node name="tutorial" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 739.0
+offset_top = 479.0
+offset_right = 896.0
+offset_bottom = 594.0
+text = "Include Tutorial?"
+
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
