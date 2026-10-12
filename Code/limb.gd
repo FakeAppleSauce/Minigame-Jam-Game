@@ -86,7 +86,6 @@ func _process(_delta: float) -> void:
 			Global.currentBuildStatus[tempVar[0]]["ID"] = null
 			Global.currentBuildStatus[tempVar[0]]["effect"] = "null"
 			Global.currentBuildStatus[tempVar[0]]["occupied"] = false
-			print(tempVar)
 			if tempVar[0] == "head":
 				order_screen.head_connector_sprite.visible = true
 			elif tempVar[0] == "leftArm":

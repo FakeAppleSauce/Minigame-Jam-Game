@@ -112,6 +112,7 @@ var dialogues = [
 	#Wait for input
 	"On your top right, you'll see a reputation counter.", 
 	"The faster you finish up these orders, the more reputation you'll receive. Lets see how high you can you get",
+	"If your rep ever goes into the negatives, however, you will be fired. So DONT lets this happen",
 	"Finally, be careful. IF you attempt to send me any wrong order, you WILL get an infraction",
 	"Once you collect 5 of these, you will be terminated. So Dont.",
 	"Welp! besides that, you should know the basics, lets start off with some basic orders shall we?",
@@ -123,7 +124,7 @@ var dialogues = [
 	"Remember those needles I spoke of before? Well we're gonna need to start using them if we want a chance at stopping this.",
 	"If you go to your work bench real quick...",
 	"At the bottom of your screen, you will see an assortment of needles.",
-	"Right now, we're gonna start using the growing syrum. This is the blue one.",
+	"Right now, we're gonna start using the growing serum. This is the blue one.",
 	"This will enlarge the limb and make it stronger",
 	"All you have to do is click and drag a needle from the shelf below onto a limb for the limb to get the effect",
 	"Go ahead and attach this new limb to the right arm like the order paper I sent shows you",
@@ -134,25 +135,30 @@ var dialogues = [
 	"Ima start sending you orders for a new limb type.",
 	"This new limb type is the metal effect.",
 	"Hopefully these make the zombies stand up more against attacks.",
-	"The grey needle contains the syrum for this effect",
+	"The grey needle contains the serum for this effect",
 	"Go ahead and try it out and send me over the order I sent",
 	"Good work so far kid, but get ready for some big challenges coming up",
 	#duplicate intro 49
 	"AAAAAAAAAAAAAAAAAAAAAAH",
 	"*ahem* sorry kid, but these zombies are not even budging with these artificial zombies were making",
-	"I'm going to start testing out a very experimental syrum",
-	"In the purple needle, there is a duplication syrum",
-	"This syrum will multiply the amount of parts the limbs have",
+	"I'm going to start testing out a very experimental serum",
+	"In the purple needle, there is a duplication serum",
+	"This serum will multiply the amount of parts the limbs have",
 	"Hopefully this will make it harder to kill our zombie clones",
 	"Go ahead and fufill the practice order I sent you and get back to work",
 	#animal intro 56
 	"Ok kid. We're starting to get somewhere but we need that final blow",
-	"There is a 4th and final syrum I am going to test.",
+	"There is a 4th and final serum I am going to test.",
 	"It doesn't even have a name yet but it is in that orange needle",
 	"It makes the limb... I don't even know",
 	"it looks like the developer was too lazy to make a 4th texture but whatever",
-	"This is the strongest of the 4th syrums, go ahead and fufill this practice order with it and get back to work.",
+	"This is the strongest of the 4th serum, go ahead and fufill this practice order with it and get back to work.",
 	#exit
+	"AMAZING WORK KID",
+	"I knew I hired the right kid",
+	"Thanks to your help I was able to find the right zombie to contain the contamination with.",
+	"However, our work here is never done. If you would like, you can keep preparing bodies for the love of the game.",
+	"Your reputation has no bounds. Just go ahead and press that bell and start endless mode."
 ]
 
 var dialoguePositions = [
@@ -231,6 +237,27 @@ var dialoguePositions = [
 	
 	Vector2(14, 17),
 	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
+	Vector2(14, 17),
 ]
 
 
@@ -247,7 +274,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func createNewOrder():
-	if orderNumber != 5 && orderNumber != 9 && orderNumber != 13 && orderNumber != 17:
+	if orderNumber != 5 && orderNumber != 9 && orderNumber != 13 && orderNumber != 17 && orderNumber != 24:
 		for i in 5:
 			currentOrder[limbs[i - 1]] = unlockedEffects[randi_range(0, len(unlockedEffects)) - 1]
 	else:

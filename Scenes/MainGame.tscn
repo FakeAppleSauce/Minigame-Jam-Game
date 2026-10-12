@@ -704,7 +704,6 @@ position = Vector2(1154, 0)
 [node name="Needle" parent="WorkBench/Needles" instance=ExtResource("4_ehaqp")]
 z_as_relative = false
 position = Vector2(180, -193)
-collision_layer = 3
 collision_mask = 32771
 
 [node name="UI" type="Control" parent="."]

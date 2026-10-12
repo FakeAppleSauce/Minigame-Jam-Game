@@ -33,7 +33,7 @@ func _process(_delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.get_parent().name == "limbs":
+	if body.get_parent().name == "Limbs":
 		if alreadyEntered == false:
 			alreadyEntered = true
 			while Input.is_action_pressed("Hold"):

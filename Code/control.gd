@@ -50,22 +50,23 @@ func _process(delta: float) -> void:
 	
 	if Global.tutorialOn == true:
 		if Input.is_action_just_pressed("Dialogue"):
-			if Global.nextDialogue == "unlocked" && Global.currentDialogue != 34 and Global.currentDialogue != 43 and Global.currentDialogue != 51 and Global.currentDialogue != 58 and Global.currentDialogue < 65:
+			print(Global.currentDialogue)
+			if Global.nextDialogue == "unlocked" && Global.currentDialogue != 35 and Global.currentDialogue != 44 and Global.currentDialogue != 52 and Global.currentDialogue != 59 and Global.currentDialogue != 65 and Global.currentDialogue < 70:
 				speech_text.visible_ratio = 0
 				Global.currentDialogue += 1
 				speech_text.text = Global.dialogues[Global.currentDialogue]
 				speech_bubble.position = Global.dialoguePositions[Global.currentDialogue]
 			
 				startNewDialogue()
-			elif Global.currentDialogue == 34: 
+			elif Global.currentDialogue == 35: 
 				speech_text.visible_ratio = 1
-				Global.currentDialogue = 35
+				Global.currentDialogue = 36
 				speech_text.text = Global.dialogues[Global.currentDialogue]
 				speech_bubble.visible = false
 				Global.nextDialogue = "locked"
 				Global.nextSectionUnlocked = true
 				
-			elif Global.currentDialogue == 43: 
+			elif Global.currentDialogue == 44: 
 				speech_text.visible_ratio = 1
 				Global.currentDialogue = 45
 				speech_text.text = Global.dialogues[Global.currentDialogue]
@@ -73,7 +74,7 @@ func _process(delta: float) -> void:
 				Global.nextDialogue = "locked"
 				Global.nextSectionUnlocked = true
 				
-			elif Global.currentDialogue == 51: 
+			elif Global.currentDialogue == 52: 
 				speech_text.visible_ratio = 1
 				Global.currentDialogue = 53
 				speech_text.text = Global.dialogues[Global.currentDialogue]
@@ -81,13 +82,27 @@ func _process(delta: float) -> void:
 				Global.nextDialogue = "locked"
 				Global.nextSectionUnlocked = true
 				
-			elif Global.currentDialogue == 58: 
+			elif Global.currentDialogue == 59: 
 				speech_text.visible_ratio = 1
-				Global.currentDialogue = 59
+				Global.currentDialogue = 60
 				speech_text.text = Global.dialogues[Global.currentDialogue]
 				speech_bubble.visible = false
 				Global.nextDialogue = "locked"
 				Global.nextSectionUnlocked = true
+			
+			elif Global.currentDialogue == 65: 
+				speech_text.visible_ratio = 1
+				Global.currentDialogue = 66
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+			
+			elif Global.currentDialogue == 70: 
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+				
 	
 	
 	
@@ -139,40 +154,48 @@ func _on_send_order_pressed() -> void:
 			for j in 5:
 				pass
 			
-	if goods == 5:
-		if Global.orderNumber != 0 && Global.orderNumber != 5 && Global.orderNumber != 9 && Global.orderNumber != 13 && Global.orderNumber != 17:
+	if goods >= 5:
+		if Global.orderNumber != 0 && Global.orderNumber != 5 && Global.orderNumber != 9 && Global.orderNumber != 13 && Global.orderNumber != 17 && Global.orderNumber != 24 or Global.tutorialOn == false:
 			Global.repAmount += round(50 * order_screen.repMultiplier)
+			if round(50 * order_screen.repMultiplier) < 0:
+				Global.infractions = 5
+			
 			if Global.orderNumber == 1:
 				Global.repAmount -= 1
 			change_counters("rep")
-		else:
+			
+
+		elif Global.orderNumber == 0:
 			Global.repAmount = 1
+			
 		Global.orderNumber += 1
 			
 		
-		if Global.orderNumber == 5 or Global.orderNumber == 9 or Global.orderNumber == 13 or Global.orderNumber == 17:
-			Global.nextDialogue = "unlocked"
-			speech_bubble.visible = true
-			startNewDialogue()
-			Global.currentOrder["head"] = "null"
-			Global.currentOrder["leftArm"] = "null"
-			Global.currentOrder["leftFoot"] = "null"
-			Global.currentOrder["rightFoot"] = "null"
-			if Global.orderNumber == 5:
-				Global.currentOrder["rightArm"] = "grow"
-			elif Global.orderNumber == 9:
-				Global.currentOrder["rightArm"] = "metal"
-			elif Global.orderNumber == 13:
-				Global.currentOrder["rightArm"] = "duplicate"
-			elif Global.orderNumber == 17:
-				Global.currentOrder["rightArm"] = "animal"
+		if Global.tutorialOn == true:
+			if Global.orderNumber == 5 or Global.orderNumber == 9 or Global.orderNumber == 13 or Global.orderNumber == 17 or Global.orderNumber == 24:
+				Global.nextDialogue = "unlocked"
+				speech_bubble.visible = true
+				startNewDialogue()
+				Global.currentOrder["head"] = "null"
+				Global.currentOrder["leftArm"] = "null"
+				Global.currentOrder["leftFoot"] = "null"
+				Global.currentOrder["rightFoot"] = "null"
+				if Global.orderNumber == 5:
+					Global.currentOrder["rightArm"] = "grow"
+				elif Global.orderNumber == 9:
+					Global.currentOrder["rightArm"] = "metal"
+				elif Global.orderNumber == 13:
+					Global.currentOrder["rightArm"] = "duplicate"
+				elif Global.orderNumber == 17:
+					Global.currentOrder["rightArm"] = "animal"
+				elif Global.orderNumber == 24:
+					Global.currentOrder["rightArm"] = "null"
 			
 			
-		else:
-			goods = 0
-			order_screen._on_rep_timer_timeout()
-			order_screen.repMultiplier = 50
-			change_counters("repMultiplier")
+		goods = 0
+		order_screen._on_rep_timer_timeout()
+		order_screen.repMultiplier = 50
+		change_counters("repMultiplier")
 		Global.createNewOrder()
 		await get_tree().create_timer(0.5).timeout
 		deleteAttachedLimbs.emit()
@@ -196,21 +219,21 @@ func _on_send_order_pressed() -> void:
 		change_counters("infractions")
 		goods = 0
 		
-		if Global.infractions >= 5:
-			Global.infractions = 0
-			Global.currentOrder = {
-				"head": "null",
-				"leftArm": "null",
-				"rightArm": "null",
-				"leftFoot": "null",
-				"rightFoot": "null"
-			}
-			Global.repAmount = 0
-			order_screen.repMultiplier = 0
-			Global.orderNumber = 0
-			Global.currentDialogue = 0
-			await get_tree().create_timer(0.1).timeout
-			get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
+	if Global.infractions >= 5:
+		Global.infractions = 0
+		Global.currentOrder = {
+			"head": "null",
+			"leftArm": "null",
+			"rightArm": "null",
+			"leftFoot": "null",
+			"rightFoot": "null"
+		}
+		Global.repAmount = 0
+		order_screen.repMultiplier = 0
+		Global.orderNumber = 0
+		Global.currentDialogue = 0
+		await get_tree().create_timer(0.1).timeout
+		get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
 
 
 
@@ -232,7 +255,11 @@ func change_counters(counter: String):
 		infraction_counter.self_modulate.r = 1 - 1.00/4 * (Global.infractions - 3)
 	
 	elif counter == "repMultiplier":
-		rep_multiplier.text = "+ " + str(round(50 * order_screen.repMultiplier))
+		if order_screen.repMultiplier <= 0:
+			rep_multiplier.text = "- " + str(round(abs(50 * order_screen.repMultiplier)))
+		else:
+			rep_multiplier.text = "+ " + str(round(abs(50 * order_screen.repMultiplier)))
+		
 		rep_multiplier.add_theme_color_override("font_color", Color(1, 1- 1.00/50 * (order_screen.repMultiplier), 1 - 1.00/50 * (order_screen.repMultiplier), 1))
 		multiplierCurrentShake = order_screen.repMultiplier/10
 		multiplier_particles.scale_amount_max = 10.0000/50 * order_screen.repMultiplier

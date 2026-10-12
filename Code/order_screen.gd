@@ -207,7 +207,6 @@ func _run_order_visuals():
 	
 	ui.change_counters("order_number")
 	moveOrderPage = false
-	print(67)
 
 
 func _on_left_arm_connector_body_exited(body: Node2D) -> void:
@@ -241,10 +240,15 @@ func _on_head_connector_body_exited(body: Node2D) -> void:
 
 
 func _on_rep_timer_timeout() -> void:
-	if repMultiplier == 50:
-		await get_tree().create_timer(4).timeout
-	
-	repMultiplier -= 0.2
-	rep_timer.wait_time = 0.2
-	ui.change_counters("repMultiplier")
-	rep_timer.start()
+	if Global.orderNumber != 5 && Global.orderNumber != 9 && Global.orderNumber != 13 && Global.orderNumber != 17:
+		if repMultiplier == 50:
+			await get_tree().create_timer(4).timeout
+		
+		if Global.orderNumber <= 24:
+			repMultiplier -= 0.2 
+			rep_timer.wait_time = 0.2
+		else:
+			repMultiplier -= 0.2 + 0.2 * ((Global.orderNumber - 24)/12.00000)
+			rep_timer.wait_time = 0.2
+		ui.change_counters("repMultiplier")
+		rep_timer.start()
