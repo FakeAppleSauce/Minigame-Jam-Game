@@ -86,18 +86,19 @@ func _process(_delta: float) -> void:
 			Global.currentBuildStatus[tempVar[0]]["ID"] = null
 			Global.currentBuildStatus[tempVar[0]]["effect"] = "null"
 			Global.currentBuildStatus[tempVar[0]]["occupied"] = false
-
-		if tempVar[0] == "head":
-			order_screen.head_connector_sprite.visible = true
-		elif tempVar[0] == "leftArm":
-			order_screen.left_arm_connector_sprite.visible = true
-		elif tempVar[0] == "rightArm":
-			order_screen.right_arm_connector_sprite.visible = true
-		elif tempVar[0] == "leftLeg":
-			order_screen.left_foot_connector_sprite.visible = true
-		elif tempVar[0] == "rightLeg":
-			order_screen.right_foot_connector_sprite.visible = true
+			print(tempVar)
+			if tempVar[0] == "head":
+				order_screen.head_connector_sprite.visible = true
+			elif tempVar[0] == "leftArm":
+				order_screen.left_arm_connector_sprite.visible = true
+			elif tempVar[0] == "rightArm":
+				order_screen.right_arm_connector_sprite.visible = true
+			elif tempVar[0] == "leftFoot":
+				order_screen.left_foot_connector_sprite.visible = true
+			elif tempVar[0] == "rightFoot":
+				order_screen.right_foot_connector_sprite.visible = true
 		
+			tempVar = []
 		queue_free()
 
 
@@ -189,11 +190,12 @@ func _on_life_timeout() -> void:
 		elif temptempvar[0] == "rightFoot":
 			order_screen.right_foot_connector_sprite.visible = true
 	
-
+	temptempvar = []
 	queue_free()
 	
 	
 func _on_delete_limbs():
+	if attached == true:
 		call_deferred("queue_free")
 
 

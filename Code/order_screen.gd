@@ -31,6 +31,7 @@ extends Node2D
 @onready var ui: Control = $"../UI"
 
 @onready var current_order: Node2D = $CurrentOrder
+@onready var zombie_build: Node2D = $ZombieBuild
 
 
 var limbs = ["head", "leftArm", "rightArm", "leftFoot", "rightFoot"]
@@ -52,14 +53,22 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if moveOrderPage == true && current_order.position.y != -1000:
-		current_order.position.y = move_toward(current_order.position.y, -1000, 50)
+		current_order.position.y = move_toward(current_order.position.y, -1000, 100)
+		
+	elif moveOrderPage == false && current_order.position.y != -10:
+		current_order.position.y = move_toward(current_order.position.y, -10, 100)
+	
+	
+		
+	if moveOrderPage == true && current_order.position.y != -1000:
+		zombie_build.position.y = move_toward(zombie_build.position.y, -1000, 100)
 		
 	elif moveOrderPage == false && current_order.position.y != 0:
-		current_order.position.y = move_toward(current_order.position.y, 0, 50)
+		zombie_build.position.y = move_toward(zombie_build.position.y, -10, 100)
 
 
 func _on_left_arm_connector_body_entered(body: Node2D) -> void:
-	if body.limb_location == 1:
+	if Global.onOrderScreen == true  && body.get_parent().name == "Limbs":
 		if body.isInLimbConnector == null:
 			body.isInLimbConnector = "leftArm"
 		
@@ -78,7 +87,7 @@ func _on_left_arm_connector_body_entered(body: Node2D) -> void:
 
 
 func _on_right_arm_connector_body_entered(body: Node2D) -> void:
-	if body.limb_location == 1:
+	if Global.onOrderScreen == true  && body.get_parent().name == "Limbs":
 		if body.isInLimbConnector == null:
 			body.isInLimbConnector = "rightArm"
 		
@@ -97,7 +106,7 @@ func _on_right_arm_connector_body_entered(body: Node2D) -> void:
 
 
 func _on_left_foot_connector_body_entered(body: Node2D) -> void:
-	if body.limb_location == 1:
+	if Global.onOrderScreen == true  && body.get_parent().name == "Limbs":
 		if body.isInLimbConnector == null:
 			body.isInLimbConnector = "leftFoot"
 			
@@ -116,7 +125,7 @@ func _on_left_foot_connector_body_entered(body: Node2D) -> void:
 
 
 func _on_right_foot_connector_body_entered(body: Node2D) -> void:
-	if body.limb_location == 1:
+	if Global.onOrderScreen == true  && body.get_parent().name == "Limbs":
 		if body.isInLimbConnector == null:
 			body.isInLimbConnector = "rightFoot"
 		
@@ -135,7 +144,7 @@ func _on_right_foot_connector_body_entered(body: Node2D) -> void:
 
 
 func _on_head_connector_body_entered(body: Node2D) -> void:
-	if body.limb_location == 1:
+	if Global.onOrderScreen == true && body.get_parent().name == "Limbs":
 		if body.isInLimbConnector == null:
 			body.isInLimbConnector = "head"
 		
@@ -160,10 +169,12 @@ func setCurrentLimb(limbType: String, limbEffect: String, limbID: int):
 
 var tempVar = "nothin"
 var moveOrderPage = false
+
+
 func _run_order_visuals():
 	moveOrderPage = true
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.5).timeout
 	if Global.currentOrder["head"] != "null":
 		head.visible = true
 		head.texture.region = Global.limbPNGPositions["head_" + str(Global.currentOrder["head"])]
@@ -196,38 +207,44 @@ func _run_order_visuals():
 	
 	ui.change_counters("order_number")
 	moveOrderPage = false
+	print(67)
 
 
 func _on_left_arm_connector_body_exited(body: Node2D) -> void:
-	if body.isInLimbConnector == "leftArm":
-		body.isInLimbConnector = null
+	if body.get_parent().name == "Limbs":
+		if body.isInLimbConnector == "leftArm":
+			body.isInLimbConnector = null
 
 
 func _on_right_arm_connector_body_exited(body: Node2D) -> void:
-	if body.isInLimbConnector == "rightArm":
-		body.isInLimbConnector = null
+	if body.get_parent().name == "Limbs":
+		if body.isInLimbConnector == "rightArm":
+			body.isInLimbConnector = null
 
 
 func _on_left_foot_connector_body_exited(body: Node2D) -> void:
-	if body.isInLimbConnector == "leftFoot":
-		body.isInLimbConnector = null
+	if body.get_parent().name == "Limbs":
+		if body.isInLimbConnector == "leftFoot":
+			body.isInLimbConnector = null
 	
 
 func _on_right_foot_connector_body_exited(body: Node2D) -> void:
-	if body.isInLimbConnector == "rightFoot":
-		body.isInLimbConnector = null
+	if body.get_parent().name == "Limbs":
+		if body.isInLimbConnector == "rightFoot":
+			body.isInLimbConnector = null
 
 
 func _on_head_connector_body_exited(body: Node2D) -> void:
-	if body.isInLimbConnector == "head":
-		body.isInLimbConnector = null
+	if body.get_parent().name == "Limbs":
+		if body.isInLimbConnector == "head":
+			body.isInLimbConnector = null
 
 
 func _on_rep_timer_timeout() -> void:
 	if repMultiplier == 50:
 		await get_tree().create_timer(4).timeout
 	
-	repMultiplier -= 1
-	rep_timer.wait_time = 1
+	repMultiplier -= 0.2
+	rep_timer.wait_time = 0.2
 	ui.change_counters("repMultiplier")
 	rep_timer.start()

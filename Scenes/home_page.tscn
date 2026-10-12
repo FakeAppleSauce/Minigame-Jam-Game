@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://duol1tdkkmhe1"]
 
 [ext_resource type="Script" path="res://Code/home_page.gd" id="1_0cseg"]
-[ext_resource type="Texture2D" uid="uid://cv3bhewfbsopa" path="res://Textures/Kitty.PNG" id="2_akdjy"]
+[ext_resource type="Texture2D" uid="uid://cla2r5vsg5k0b" path="res://Textures/LastInternLOGO.PNG" id="2_fetak"]
 
 [node name="HomePage" type="Control"]
 layout_mode = 3
@@ -10,10 +10,18 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_0cseg")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -29.0
+offset_top = -28.0
+offset_right = 1183.0
+offset_bottom = 697.0
+color = Color(0.656073, 0, 0.155266, 1)
+
 [node name="Title" type="Sprite2D" parent="."]
-position = Vector2(575, 227)
-scale = Vector2(0.468, 0.468)
-texture = ExtResource("2_akdjy")
+position = Vector2(575, 266)
+scale = Vector2(0.82775, 0.82775)
+texture = ExtResource("2_fetak")
 
 [node name="StartButton" type="Button" parent="."]
 layout_mode = 0
@@ -29,6 +37,7 @@ offset_left = 739.0
 offset_top = 479.0
 offset_right = 896.0
 offset_bottom = 594.0
-text = "Include Tutorial?"
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Include Tutorial / Story Mode?"
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]

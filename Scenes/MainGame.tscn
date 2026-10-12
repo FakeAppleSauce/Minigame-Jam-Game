@@ -1,7 +1,8 @@
-[gd_scene load_steps=49 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=52 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://Code/order_screen.gd" id="1_2g5md"]
-[ext_resource type="Texture2D" uid="uid://cafusuljqc4ox" path="res://Textures/OrderBG.PNG" id="2_t5wyg"]
+[ext_resource type="Texture2D" uid="uid://cl8cyloseqgwk" path="res://Textures/bellUp.PNG" id="2_gilt5"]
+[ext_resource type="Texture2D" uid="uid://bwa1ffpkua1et" path="res://Textures/bellDown.PNG" id="3_4bbct"]
 [ext_resource type="Texture2D" uid="uid://uo5po2mlmbxs" path="res://Textures/zombieTorso.PNG" id="3_44emb"]
 [ext_resource type="Script" path="res://Code/work_bench.gd" id="3_85q7c"]
 [ext_resource type="PackedScene" uid="uid://b7hxlu5x3pnqj" path="res://Scenes/needle.tscn" id="4_ehaqp"]
@@ -12,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dtq38jjp0dfod" path="res://Textures/Needles.PNG" id="5_jfwcl"]
 [ext_resource type="PackedScene" uid="uid://0byordc8db3l" path="res://Scenes/limb.tscn" id="5_rqysd"]
 [ext_resource type="Texture2D" uid="uid://n6fh56tobv7t" path="res://Textures/Freezers.PNG" id="6_4hynp"]
+[ext_resource type="Texture2D" uid="uid://culybt08rtrjr" path="res://Textures/orderPaper.PNG" id="6_yqg4s"]
+[ext_resource type="Texture2D" uid="uid://6fjxr1fppdnm" path="res://Textures/shelf.PNG" id="10_g5mfd"]
 
 [sub_resource type="Animation" id="Animation_bf4f8"]
 length = 0.001
@@ -278,21 +281,15 @@ b = Vector2(-1154, -1)
 z_index = -1
 script = ExtResource("1_2g5md")
 
-[node name="sendOrderButton" type="Button" parent="OrderScreen"]
-offset_left = 239.0
-offset_top = 548.0
-offset_right = 431.0
-offset_bottom = 604.0
-text = "Send Order"
-
-[node name="OrderBackGround" type="TextureRect" parent="OrderScreen"]
-self_modulate = Color(0.656285, 0.656285, 0.656285, 1)
-z_index = -15
-offset_right = 1163.0
-offset_bottom = 652.0
-mouse_filter = 2
-texture = ExtResource("2_t5wyg")
-expand_mode = 1
+[node name="sendOrderButton" type="TextureButton" parent="OrderScreen"]
+offset_left = 58.0
+offset_top = 447.0
+offset_right = 243.0
+offset_bottom = 643.0
+texture_normal = ExtResource("2_gilt5")
+texture_pressed = ExtResource("3_4bbct")
+ignore_texture_size = true
+stretch_mode = 4
 
 [node name="ZombieBuild" type="Node2D" parent="OrderScreen"]
 z_index = -1
@@ -305,7 +302,7 @@ autoplay = "movingConnectors"
 
 [node name="Torso" type="Sprite2D" parent="OrderScreen/ZombieBuild"]
 z_index = -3
-position = Vector2(343, 329)
+position = Vector2(398.5, 339.25)
 scale = Vector2(0.736328, 0.736328)
 texture = ExtResource("3_44emb")
 metadata/_edit_group_ = true
@@ -315,12 +312,12 @@ position = Vector2(0, 32)
 
 [node name="leftJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftArm"]
 z_index = 5
-position = Vector2(230, 237)
+position = Vector2(285.5, 247.25)
 node_b = NodePath("../invisibleLeftArm")
 metadata/_edit_group_ = true
 
 [node name="invisibleLeftArm" type="StaticBody2D" parent="OrderScreen/ZombieBuild/leftArm"]
-position = Vector2(230, 237)
+position = Vector2(285.5, 247.25)
 scale = Vector2(0.24375, 0.397)
 collision_layer = 0
 collision_mask = 0
@@ -331,7 +328,7 @@ position = Vector2(-0.00012207, 0)
 shape = SubResource("CapsuleShape2D_0in1h")
 
 [node name="leftArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild/leftArm"]
-position = Vector2(230, 237)
+position = Vector2(285.5, 247.25)
 input_pickable = false
 metadata/_edit_group_ = true
 
@@ -339,7 +336,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_5k2sm")
 
 [node name="leftArmConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/leftArm"]
-position = Vector2(230, 237)
+position = Vector2(285.5, 247.25)
 scale = Vector2(0.394531, 0.394531)
 texture = SubResource("AtlasTexture_najys")
 
@@ -347,11 +344,11 @@ texture = SubResource("AtlasTexture_najys")
 position = Vector2(-11, 32)
 
 [node name="rightJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightArm"]
-position = Vector2(461, 229)
+position = Vector2(516.5, 239.25)
 node_b = NodePath("../invisibleRightArm")
 
 [node name="invisibleRightArm" type="StaticBody2D" parent="OrderScreen/ZombieBuild/rightArm"]
-position = Vector2(461, 229)
+position = Vector2(516.5, 239.25)
 collision_layer = 0
 collision_mask = 0
 metadata/_edit_group_ = true
@@ -360,7 +357,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape2D_ky58f")
 
 [node name="rightArmConnector" type="Area2D" parent="OrderScreen/ZombieBuild/rightArm"]
-position = Vector2(461, 229)
+position = Vector2(516.5, 239.25)
 input_pickable = false
 metadata/_edit_group_ = true
 
@@ -368,7 +365,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_w8i25")
 
 [node name="rightArmConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/rightArm"]
-position = Vector2(461, 229)
+position = Vector2(516.5, 239.25)
 scale = Vector2(0.394531, 0.394531)
 texture = SubResource("AtlasTexture_najys")
 
@@ -376,11 +373,11 @@ texture = SubResource("AtlasTexture_najys")
 position = Vector2(8, 0)
 
 [node name="leftFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/leftFoot"]
-position = Vector2(275, 478)
+position = Vector2(330.5, 488.25)
 node_b = NodePath("../invisibleLeftFoot")
 
 [node name="invisibleLeftFoot" type="StaticBody2D" parent="OrderScreen/ZombieBuild/leftFoot"]
-position = Vector2(275, 478)
+position = Vector2(330.5, 488.25)
 collision_layer = 0
 collision_mask = 0
 metadata/_edit_group_ = true
@@ -389,7 +386,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape2D_mr453")
 
 [node name="leftFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild/leftFoot"]
-position = Vector2(275, 478)
+position = Vector2(330.5, 488.25)
 input_pickable = false
 metadata/_edit_group_ = true
 
@@ -397,7 +394,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_chhwy")
 
 [node name="leftFootConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/leftFoot"]
-position = Vector2(275, 478)
+position = Vector2(330.5, 488.25)
 scale = Vector2(0.394531, 0.394531)
 texture = SubResource("AtlasTexture_najys")
 
@@ -405,11 +402,11 @@ texture = SubResource("AtlasTexture_najys")
 position = Vector2(9, -2)
 
 [node name="rightFootJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/rightFoot"]
-position = Vector2(399, 478)
+position = Vector2(454.5, 488.25)
 node_b = NodePath("../invisibleRightFoot")
 
 [node name="invisibleRightFoot" type="StaticBody2D" parent="OrderScreen/ZombieBuild/rightFoot"]
-position = Vector2(399, 478)
+position = Vector2(454.5, 488.25)
 collision_layer = 0
 collision_mask = 0
 metadata/_edit_group_ = true
@@ -418,7 +415,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape2D_vjgxr")
 
 [node name="rightFootConnector" type="Area2D" parent="OrderScreen/ZombieBuild/rightFoot"]
-position = Vector2(399, 478)
+position = Vector2(454.5, 488.25)
 input_pickable = false
 metadata/_edit_group_ = true
 
@@ -426,7 +423,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_6iyli")
 
 [node name="rightFootConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/rightFoot"]
-position = Vector2(399, 478)
+position = Vector2(454.5, 488.25)
 scale = Vector2(0.394531, 0.394531)
 texture = SubResource("AtlasTexture_najys")
 
@@ -434,13 +431,13 @@ texture = SubResource("AtlasTexture_najys")
 position = Vector2(0, -36)
 
 [node name="headJoint" type="PinJoint2D" parent="OrderScreen/ZombieBuild/head"]
-position = Vector2(343, 194)
+position = Vector2(398.5, 204.25)
 node_b = NodePath("../invisibleHead")
 angular_limit_lower = -1.0472
 angular_limit_upper = 1.0472
 
 [node name="invisibleHead" type="StaticBody2D" parent="OrderScreen/ZombieBuild/head"]
-position = Vector2(343, 194)
+position = Vector2(398.5, 204.25)
 collision_layer = 0
 collision_mask = 0
 metadata/_edit_group_ = true
@@ -449,7 +446,7 @@ metadata/_edit_group_ = true
 shape = SubResource("CapsuleShape2D_sj03v")
 
 [node name="headConnector" type="Area2D" parent="OrderScreen/ZombieBuild/head"]
-position = Vector2(343, 194)
+position = Vector2(398.5, 204.25)
 input_pickable = false
 metadata/_edit_group_ = true
 
@@ -457,21 +454,24 @@ metadata/_edit_group_ = true
 shape = SubResource("CircleShape2D_indhl")
 
 [node name="headConnectorSprite" type="Sprite2D" parent="OrderScreen/ZombieBuild/head"]
-position = Vector2(343, 194)
+position = Vector2(398.5, 204.25)
 scale = Vector2(0.462891, 0.462891)
 texture = SubResource("AtlasTexture_najys")
 
 [node name="CurrentOrder" type="Node2D" parent="OrderScreen"]
+position = Vector2(0, -10)
 
-[node name="Background" type="ColorRect" parent="OrderScreen/CurrentOrder"]
+[node name="Background" type="TextureRect" parent="OrderScreen/CurrentOrder"]
 z_index = -3
-offset_left = 639.0
-offset_top = 100.0
-offset_right = 1018.0
-offset_bottom = 591.0
-color = Color(0.840262, 0.828184, 0, 1)
+offset_left = 522.0
+offset_top = 44.0
+offset_right = 1129.0
+offset_bottom = 636.0
+texture = ExtResource("6_yqg4s")
+expand_mode = 1
 
 [node name="OrderTorso" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
+self_modulate = Color(1, 1, 1, 0.815686)
 z_index = -1
 position = Vector2(827, 338)
 scale = Vector2(0.609941, 0.609941)
@@ -479,6 +479,7 @@ texture = ExtResource("3_44emb")
 
 [node name="OrderLeftArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 visible = false
+self_modulate = Color(1, 1, 1, 0.705882)
 position = Vector2(710, 311)
 rotation = -0.254818
 scale = Vector2(0.386556, 0.386556)
@@ -493,6 +494,7 @@ texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightArm" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 visible = false
+self_modulate = Color(1, 1, 1, 0.737255)
 position = Vector2(945.62, 322.369)
 rotation = 3.35976
 scale = Vector2(0.390948, 0.395365)
@@ -508,6 +510,7 @@ texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderLeftLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 visible = false
+self_modulate = Color(1, 1, 1, 0.72549)
 position = Vector2(763.461, 502.537)
 rotation = 4.32842
 scale = Vector2(0.343, 0.343)
@@ -523,6 +526,7 @@ texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderRightLeg" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 visible = false
+self_modulate = Color(1, 1, 1, 0.709804)
 position = Vector2(881.422, 502.833)
 rotation = -1.14145
 scale = Vector2(0.342973, 0.342973)
@@ -537,6 +541,7 @@ texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="OrderHead" type="Sprite2D" parent="OrderScreen/CurrentOrder"]
 visible = false
+self_modulate = Color(1, 1, 1, 0.776471)
 position = Vector2(830, 169)
 scale = Vector2(0.328125, 0.328125)
 texture = SubResource("AtlasTexture_qyqo2")
@@ -549,12 +554,13 @@ scale = Vector2(0.47811, 0.531169)
 texture = SubResource("AtlasTexture_hfrtf")
 
 [node name="repTimer" type="Timer" parent="OrderScreen/CurrentOrder"]
+wait_time = 0.2
 
 [node name="orderNumber" type="Label" parent="OrderScreen/CurrentOrder"]
-offset_left = 957.0
-offset_top = 100.0
-offset_right = 986.0
-offset_bottom = 169.0
+offset_left = 953.0
+offset_top = 119.0
+offset_right = 982.0
+offset_bottom = 188.0
 theme_override_colors/font_color = Color(0.564706, 0.505882, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 15
@@ -573,20 +579,23 @@ offset_bottom = 649.0
 texture = ExtResource("4_r56wr")
 expand_mode = 1
 
-[node name="Shelf" type="ColorRect" parent="WorkBench"]
+[node name="Shelf" type="TextureRect" parent="WorkBench"]
 z_index = -2
-offset_left = 1.0
-offset_top = 529.0
-offset_right = 1154.0
-offset_bottom = 649.0
+offset_left = -2.0
+offset_top = 151.0
+offset_right = 1153.0
+offset_bottom = 651.0
 mouse_filter = 2
-color = Color(0.315713, 0.236927, 0.062054, 1)
+texture = ExtResource("10_g5mfd")
+expand_mode = 1
 
 [node name="growNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00693842
-anchor_right = 0.00693842
+anchor_left = 0.152381
+anchor_top = 0.736
+anchor_right = 0.152381
+anchor_bottom = 0.736
 offset_left = 22.0
 offset_top = -33.0
 offset_right = 1022.0
@@ -599,8 +608,10 @@ metadata/_edit_use_anchors_ = true
 [node name="duplicateNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00693842
-anchor_right = 0.00693842
+anchor_left = 0.0536797
+anchor_top = 0.732
+anchor_right = 0.0536797
+anchor_bottom = 0.732
 offset_left = 664.0
 offset_top = -33.0
 offset_right = 1664.0
@@ -613,8 +624,10 @@ metadata/_edit_use_anchors_ = true
 [node name="metalNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00693842
-anchor_right = 0.00693842
+anchor_left = 0.108225
+anchor_top = 0.74
+anchor_right = 0.108225
+anchor_bottom = 0.74
 offset_left = 346.0
 offset_top = -33.0
 offset_right = 1346.0
@@ -627,8 +640,10 @@ metadata/_edit_use_anchors_ = true
 [node name="animalNeedle" type="TextureButton" parent="WorkBench/Shelf"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.00693842
-anchor_right = 0.00693842
+anchor_left = 0.00952989
+anchor_top = 0.732
+anchor_right = 0.00952994
+anchor_bottom = 0.732
 offset_left = 975.993
 offset_top = -33.0
 offset_right = 1975.99
@@ -650,9 +665,9 @@ stretch_mode = 5
 metadata/_edit_use_anchors_ = true
 
 [node name="armFreezer" type="TextureButton" parent="WorkBench"]
-offset_top = 169.0
+offset_top = 168.0
 offset_right = 178.0
-offset_bottom = 355.0
+offset_bottom = 354.0
 texture_normal = SubResource("AtlasTexture_i4cx4")
 texture_pressed = SubResource("AtlasTexture_ad07x")
 ignore_texture_size = true
@@ -719,10 +734,10 @@ text = "Work Bench"
 [node name="RepCounter" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
-offset_left = 769.0
-offset_top = 41.0
-offset_right = 986.0
-offset_bottom = 103.0
+offset_left = 639.0
+offset_top = 31.7002
+offset_right = 856.0
+offset_bottom = 93.7002
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Reputation: 0"
@@ -730,10 +745,10 @@ text = "Reputation: 0"
 [node name="InfractionCounter" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
-offset_left = 511.0
-offset_top = 40.0
-offset_right = 701.0
-offset_bottom = 82.0
+offset_left = 935.0
+offset_top = 594.0
+offset_right = 1125.0
+offset_bottom = 636.0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
@@ -742,10 +757,10 @@ text = "Infractions: 0"
 [node name="repMultiplier" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
-offset_left = 906.0
-offset_top = 21.0
-offset_right = 999.0
-offset_bottom = 63.0
+offset_left = 764.0
+offset_top = 11.7002
+offset_right = 857.0
+offset_bottom = 53.7002
 rotation = -0.202458
 theme_override_colors/font_color = Color(1, 0.0627451, 0, 1)
 theme_override_constants/outline_size = 10
@@ -769,30 +784,44 @@ color_initial_ramp = SubResource("Gradient_snwts")
 hue_variation_min = -1.0
 hue_variation_max = 1.0
 
-[node name="TEMPORARYTEXT" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 664.0
-offset_top = 591.0
-offset_right = 1070.0
-offset_bottom = 640.0
-text = "VISIBLE = ORDER HAS THIS LIMB
-NOT VISIBLE = ORDER NO  HAS THIS LIMB"
+[node name="Tutorial Stuff" type="Control" parent="UI"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="TEMPORARYTEXT2" type="Label" parent="UI"]
-layout_mode = 0
-offset_left = 137.0
-offset_top = 617.0
-offset_right = 543.0
-offset_bottom = 666.0
-text = "PRESS SEND ORDER WITH NO LIMBS ON TO START"
+[node name="speechBubble" type="Control" parent="UI/Tutorial Stuff"]
+anchors_preset = 0
+offset_left = 22.0
+offset_top = 32.0
+offset_right = 351.0
+offset_bottom = 209.0
 
-[node name="TEMPORARYTEXT3" type="Label" parent="UI"]
+[node name="speechBubbleBG" type="ColorRect" parent="UI/Tutorial Stuff/speechBubble"]
+clip_contents = true
 layout_mode = 0
-offset_left = -470.0
-offset_top = 62.0
-offset_right = -91.0
-offset_bottom = 111.0
-text = "PUT LIMB HERE TO MOVE IT TO ORDER SCREEN ->"
+offset_right = 314.0
+offset_bottom = 158.0
+color = Color(0, 0, 0, 0.607843)
+
+[node name="speechBubbleBG2" type="ColorRect" parent="UI/Tutorial Stuff/speechBubble"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 6.0
+offset_right = 309.0
+offset_bottom = 153.0
+color = Color(0.776471, 0.768627, 0, 0.682353)
+
+[node name="speechText" type="Label" parent="UI/Tutorial Stuff/speechBubble"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 6.0
+offset_right = 304.0
+offset_bottom = 149.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 1
+theme_override_font_sizes/font_size = 20
+text = "*Press D For Next Dialogue*"
+autowrap_mode = 3
 
 [node name="Limbs" type="Node2D" parent="."]
 

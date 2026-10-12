@@ -12,12 +12,12 @@ extends Control
 
 
 
-@onready var send_order_button: Button = $"../OrderScreen/sendOrderButton"
-@onready var temporarytext: Label = $TEMPORARYTEXT
-@onready var temporarytext_2: Label = $TEMPORARYTEXT2
-@onready var temporarytext_3: Label = $TEMPORARYTEXT3
+@onready var send_order_button: TextureButton = $"../OrderScreen/sendOrderButton"
 
 @onready var camera_2d: Camera2D = $"../Camera2D"
+
+@onready var speech_text: Label = $"Tutorial Stuff/speechBubble/speechText"
+@onready var speech_bubble: Control = $"Tutorial Stuff/speechBubble"
 
 
 var button_slide = false
@@ -31,20 +31,64 @@ signal notePosition
 signal deleteAttachedLimbs
 
 func _ready() -> void:
-	pass
+	if Global.tutorialOn == true:
+		speech_bubble.visible = true
+	else:
+		speech_bubble.visible = false
 
 
 func _process(delta: float) -> void:
 	if multiplierCurrentShake > 0:
 		multiplierCurrentShake = lerp(multiplierCurrentShake, 0.0, shake_decay_rate * delta)
 		
-		rep_multiplier.position = Vector2(906, 21) + Vector2(
+		rep_multiplier.position = Vector2(764, 16) + Vector2(
 			randf_range(-multiplierCurrentShake, multiplierCurrentShake),
 			randf_range(-multiplierCurrentShake, multiplierCurrentShake)
 		)
 	else:
-		rep_multiplier.position = Vector2(906, 21)
-	pass
+		rep_multiplier.position = Vector2(764, 16)
+	
+	if Global.tutorialOn == true:
+		if Input.is_action_just_pressed("Dialogue"):
+			if Global.nextDialogue == "unlocked" && Global.currentDialogue != 34 and Global.currentDialogue != 43 and Global.currentDialogue != 51 and Global.currentDialogue != 58 and Global.currentDialogue < 65:
+				speech_text.visible_ratio = 0
+				Global.currentDialogue += 1
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.position = Global.dialoguePositions[Global.currentDialogue]
+			
+				startNewDialogue()
+			elif Global.currentDialogue == 34: 
+				speech_text.visible_ratio = 1
+				Global.currentDialogue = 35
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+				
+			elif Global.currentDialogue == 43: 
+				speech_text.visible_ratio = 1
+				Global.currentDialogue = 45
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+				
+			elif Global.currentDialogue == 51: 
+				speech_text.visible_ratio = 1
+				Global.currentDialogue = 53
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+				
+			elif Global.currentDialogue == 58: 
+				speech_text.visible_ratio = 1
+				Global.currentDialogue = 59
+				speech_text.text = Global.dialogues[Global.currentDialogue]
+				speech_bubble.visible = false
+				Global.nextDialogue = "locked"
+				Global.nextSectionUnlocked = true
+	
 	
 	
 #right = 576, left = -576
@@ -96,19 +140,43 @@ func _on_send_order_pressed() -> void:
 				pass
 			
 	if goods == 5:
-		if Global.orderNumber != 0:
-			Global.repAmount += 50 * order_screen.repMultiplier
+		if Global.orderNumber != 0 && Global.orderNumber != 5 && Global.orderNumber != 9 && Global.orderNumber != 13 && Global.orderNumber != 17:
+			Global.repAmount += round(50 * order_screen.repMultiplier)
+			if Global.orderNumber == 1:
+				Global.repAmount -= 1
 			change_counters("rep")
 		else:
 			Global.repAmount = 1
-		
 		Global.orderNumber += 1
-		deleteAttachedLimbs.emit()
-		goods = 0
+			
+		
+		if Global.orderNumber == 5 or Global.orderNumber == 9 or Global.orderNumber == 13 or Global.orderNumber == 17:
+			Global.nextDialogue = "unlocked"
+			speech_bubble.visible = true
+			startNewDialogue()
+			Global.currentOrder["head"] = "null"
+			Global.currentOrder["leftArm"] = "null"
+			Global.currentOrder["leftFoot"] = "null"
+			Global.currentOrder["rightFoot"] = "null"
+			if Global.orderNumber == 5:
+				Global.currentOrder["rightArm"] = "grow"
+			elif Global.orderNumber == 9:
+				Global.currentOrder["rightArm"] = "metal"
+			elif Global.orderNumber == 13:
+				Global.currentOrder["rightArm"] = "duplicate"
+			elif Global.orderNumber == 17:
+				Global.currentOrder["rightArm"] = "animal"
+			
+			
+		else:
+			goods = 0
+			order_screen._on_rep_timer_timeout()
+			order_screen.repMultiplier = 50
+			change_counters("repMultiplier")
 		Global.createNewOrder()
-		order_screen._on_rep_timer_timeout()
-		order_screen.repMultiplier = 50
-		change_counters("repMultiplier")
+		await get_tree().create_timer(0.5).timeout
+		deleteAttachedLimbs.emit()
+		
 		
 		for i in 5:
 			Global.currentBuildStatus[limbs[i-1]]["effect"] = "null"
@@ -127,8 +195,20 @@ func _on_send_order_pressed() -> void:
 		Global.infractions += 1
 		change_counters("infractions")
 		goods = 0
+		
 		if Global.infractions >= 5:
 			Global.infractions = 0
+			Global.currentOrder = {
+				"head": "null",
+				"leftArm": "null",
+				"rightArm": "null",
+				"leftFoot": "null",
+				"rightFoot": "null"
+			}
+			Global.repAmount = 0
+			order_screen.repMultiplier = 0
+			Global.orderNumber = 0
+			Global.currentDialogue = 0
 			await get_tree().create_timer(0.1).timeout
 			get_tree().change_scene_to_file("res://Scenes/home_page.tscn")
 
@@ -137,6 +217,13 @@ func _on_send_order_pressed() -> void:
 func change_counters(counter: String):
 	if counter == "rep":
 		rep_counter.text = "Reputation: " + str(Global.repAmount)
+		for i in 5:
+			rep_counter.self_modulate.g = move_toward(rep_counter.self_modulate.g, 0.5, 0.1)
+			rep_counter.self_modulate.b = move_toward(rep_counter.self_modulate.g, 0.5, 0.1)
+			await get_tree().create_timer(0.1).timeout
+			rep_counter.self_modulate.g = move_toward(rep_counter.self_modulate.g, 1, 0.1)
+			rep_counter.self_modulate.b = move_toward(rep_counter.self_modulate.g, 1, 0.1)
+			await get_tree().create_timer(0.1).timeout
 		
 	elif counter == "infractions":
 		infraction_counter.text = "Infractions: " + str(Global.infractions)
@@ -145,11 +232,18 @@ func change_counters(counter: String):
 		infraction_counter.self_modulate.r = 1 - 1.00/4 * (Global.infractions - 3)
 	
 	elif counter == "repMultiplier":
-		rep_multiplier.text = "+ " + str(50 * order_screen.repMultiplier)
-		rep_multiplier.add_theme_color_override("font_color", Color(1.00/50 * (order_screen.repMultiplier), 0.05, 0, 1))
+		rep_multiplier.text = "+ " + str(round(50 * order_screen.repMultiplier))
+		rep_multiplier.add_theme_color_override("font_color", Color(1, 1- 1.00/50 * (order_screen.repMultiplier), 1 - 1.00/50 * (order_screen.repMultiplier), 1))
 		multiplierCurrentShake = order_screen.repMultiplier/10
 		multiplier_particles.scale_amount_max = 10.0000/50 * order_screen.repMultiplier
 		
 	elif counter == "order_number":
 		order_number.text = str(Global.orderNumber)
-	
+
+
+
+func startNewDialogue():
+	if speech_text.visible_ratio != 1:
+		speech_text.visible_ratio += 0.01
+		await get_tree().create_timer(0.01).timeout
+		startNewDialogue()
