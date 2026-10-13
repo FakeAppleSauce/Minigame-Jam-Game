@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://b2uy07pjgjaka"]
+[gd_scene load_steps=55 format=3 uid="uid://b2uy07pjgjaka"]
 
 [ext_resource type="Script" path="res://Code/order_screen.gd" id="1_2g5md"]
 [ext_resource type="Texture2D" uid="uid://cl8cyloseqgwk" path="res://Textures/bellUp.PNG" id="2_gilt5"]
@@ -255,6 +255,18 @@ region = Rect2(256, 256, 256, 256)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eqlhv"]
 size = Vector2(69, 187)
+
+[sub_resource type="Gradient" id="Gradient_fsgq5"]
+offsets = PackedFloat32Array(0.00666667, 1)
+colors = PackedColorArray(0.278431, 0, 0, 1, 1, 0, 0, 0.858824)
+
+[sub_resource type="Gradient" id="Gradient_p23fu"]
+colors = PackedColorArray(0.372549, 0, 0, 1, 0.996078, 0, 0, 0.909804)
+
+[sub_resource type="Curve" id="Curve_f16qn"]
+min_value = -1.0
+_data = [Vector2(0, 0.351544), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="Gradient" id="Gradient_snwts"]
 colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1)
@@ -689,13 +701,24 @@ offset_left = 1083.0
 offset_right = 1152.0
 offset_bottom = 187.0
 mouse_filter = 2
+color = Color(0.237539, 0.237539, 0.237539, 1)
 
 [node name="Area2D" type="Area2D" parent="WorkBench/Chute"]
 position = Vector2(8, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WorkBench/Chute/Area2D"]
-position = Vector2(27.5, 93.5)
+z_index = 1
+position = Vector2(27, 94)
 shape = SubResource("RectangleShape2D_eqlhv")
+
+[node name="ColorRect" type="ColorRect" parent="WorkBench/Chute"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 19.0
+offset_right = 69.0
+offset_bottom = 172.0
+mouse_filter = 2
+color = Color(0.169245, 0.169245, 0.169245, 1)
 
 [node name="Needles" type="Node2D" parent="WorkBench"]
 z_as_relative = false
@@ -753,6 +776,28 @@ theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
 text = "Infractions: 0"
 
+[node name="infractionsParticles" type="CPUParticles2D" parent="UI/InfractionCounter"]
+position = Vector2(96, 23)
+emitting = false
+amount = 30
+one_shot = true
+emission_shape = 1
+emission_sphere_radius = 30.0
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 80.81
+initial_velocity_max = 358.59
+angular_velocity_max = 20.0
+angle_min = -589.1
+angle_max = 298.2
+scale_amount_max = 20.0
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("Gradient_fsgq5")
+color_initial_ramp = SubResource("Gradient_p23fu")
+hue_variation_min = -0.7
+hue_variation_max = 0.58
+hue_variation_curve = SubResource("Curve_f16qn")
+
 [node name="repMultiplier" type="Label" parent="UI"]
 z_index = 10
 layout_mode = 0
@@ -764,7 +809,7 @@ rotation = -0.202458
 theme_override_colors/font_color = Color(1, 0.0627451, 0, 1)
 theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 30
-text = "x 1"
+text = "+ 0"
 
 [node name="multiplierParticles" type="CPUParticles2D" parent="UI/repMultiplier"]
 self_modulate = Color(1, 1, 1, 0.772549)
@@ -787,6 +832,7 @@ hue_variation_max = 1.0
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="speechBubble" type="Control" parent="UI/Tutorial Stuff"]
 anchors_preset = 0
@@ -794,12 +840,14 @@ offset_left = 22.0
 offset_top = 32.0
 offset_right = 351.0
 offset_bottom = 209.0
+mouse_filter = 2
 
 [node name="speechBubbleBG" type="ColorRect" parent="UI/Tutorial Stuff/speechBubble"]
 clip_contents = true
 layout_mode = 0
 offset_right = 314.0
 offset_bottom = 158.0
+mouse_filter = 2
 color = Color(0, 0, 0, 0.607843)
 
 [node name="speechBubbleBG2" type="ColorRect" parent="UI/Tutorial Stuff/speechBubble"]
@@ -808,6 +856,7 @@ offset_left = 5.0
 offset_top = 6.0
 offset_right = 309.0
 offset_bottom = 153.0
+mouse_filter = 2
 color = Color(0.776471, 0.768627, 0, 0.682353)
 
 [node name="speechText" type="Label" parent="UI/Tutorial Stuff/speechBubble"]
@@ -851,6 +900,7 @@ shape = SubResource("SegmentShape2D_7gcs3")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 325)
+zoom = Vector2(1.11, 1.11)
 
 [connection signal="pressed" from="OrderScreen/sendOrderButton" to="UI" method="_on_send_order_pressed"]
 [connection signal="body_entered" from="OrderScreen/ZombieBuild/leftArm/leftArmConnector" to="OrderScreen" method="_on_left_arm_connector_body_entered"]

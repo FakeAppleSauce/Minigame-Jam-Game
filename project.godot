@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="Minigame Jam"
+config/name="The Last Intern"
 run/main_scene="res://Scenes/home_page.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0.0618341, 0.168864, 0.0443502, 1)
@@ -22,6 +22,8 @@ Global="*res://Code/global.gd"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 
 [input]
@@ -49,5 +51,6 @@ openWorkBench={
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 environment/defaults/default_clear_color=Color(0.182984, 0.347103, 0.146579, 1)

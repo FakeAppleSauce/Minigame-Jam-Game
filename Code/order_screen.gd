@@ -43,7 +43,7 @@ var overlappingLL = false
 var overlappingRL = false
 var overlappingH = false
 
-var repMultiplier = 50
+var repMultiplier = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -241,11 +241,11 @@ func _on_head_connector_body_exited(body: Node2D) -> void:
 
 func _on_rep_timer_timeout() -> void:
 	if Global.orderNumber != 5 && Global.orderNumber != 9 && Global.orderNumber != 13 && Global.orderNumber != 17:
-		if repMultiplier == 50:
+		if repMultiplier == 100:
 			await get_tree().create_timer(4).timeout
 		
 		if Global.orderNumber <= 24:
-			repMultiplier -= 0.2 
+			repMultiplier -= 0.2
 			rep_timer.wait_time = 0.2
 		else:
 			repMultiplier -= 0.2 + 0.2 * ((Global.orderNumber - 24)/12.00000)

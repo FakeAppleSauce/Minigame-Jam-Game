@@ -9,6 +9,7 @@ extends Control
 @onready var order_number: Label = $"../OrderScreen/CurrentOrder/orderNumber"
 @onready var rep_multiplier: Label = $repMultiplier
 @onready var multiplier_particles: CPUParticles2D = $repMultiplier/multiplierParticles
+@onready var infractions_particles: CPUParticles2D = $InfractionCounter/infractionsParticles
 
 
 
@@ -194,7 +195,7 @@ func _on_send_order_pressed() -> void:
 			
 		goods = 0
 		order_screen._on_rep_timer_timeout()
-		order_screen.repMultiplier = 50
+		order_screen.repMultiplier = 100
 		change_counters("repMultiplier")
 		Global.createNewOrder()
 		await get_tree().create_timer(0.5).timeout
@@ -249,6 +250,7 @@ func change_counters(counter: String):
 			await get_tree().create_timer(0.1).timeout
 		
 	elif counter == "infractions":
+		infractions_particles.emitting = true
 		infraction_counter.text = "Infractions: " + str(Global.infractions)
 		infraction_counter.self_modulate.b = 1 - 1.00/4 * Global.infractions
 		infraction_counter.self_modulate.g = 1 - 1.00/4 * Global.infractions
@@ -260,9 +262,9 @@ func change_counters(counter: String):
 		else:
 			rep_multiplier.text = "+ " + str(round(abs(50 * order_screen.repMultiplier)))
 		
-		rep_multiplier.add_theme_color_override("font_color", Color(1, 1- 1.00/50 * (order_screen.repMultiplier), 1 - 1.00/50 * (order_screen.repMultiplier), 1))
-		multiplierCurrentShake = order_screen.repMultiplier/10
-		multiplier_particles.scale_amount_max = 10.0000/50 * order_screen.repMultiplier
+		rep_multiplier.add_theme_color_override("font_color", Color(1, 1- 1.00/100 * (order_screen.repMultiplier), 1 - 1.00/100 * (order_screen.repMultiplier), 1))
+		multiplierCurrentShake = order_screen.repMultiplier/40
+		multiplier_particles.scale_amount_max = 10.0000/100 * order_screen.repMultiplier
 		
 	elif counter == "order_number":
 		order_number.text = str(Global.orderNumber)
